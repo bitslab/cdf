@@ -1,0 +1,196 @@
+{
+  "t": "html",
+  "a": {"lang": "en"},
+  "c": [{
+    "t": "head",
+    "c": [{
+      "t": "title",
+      "c": [{"t": "text", "text": "CDF Comments"}]
+    }, {
+      "t": "meta",
+      "a": {"charset": "utf-8"}
+    }, {
+      "t": "meta",
+      "a": {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1"
+      }
+    }, {
+      "t": "link",
+      "a": {
+        "href": "/stylesheets/contrib/bootstrap.min.css",
+        "media": "all",
+        "rel": "stylesheet",
+        "type": "text/css"
+      }
+    }, {
+      "t": "link",
+      "a": {
+        "href": "/stylesheets/contrib/bootstrap-theme.min.css",
+        "media": "all",
+        "rel": "stylesheet",
+        "type": "text/css"
+      }
+    }, {
+      "t": "link",
+      "a": {
+        "href": "/stylesheets/styles.css",
+        "media": "all",
+        "rel": "stylesheet",
+        "type": "text/css"
+      }
+    }]
+  }, {
+    "t": "body",
+    "c": [{
+      "t": "div",
+      "a": {"class": ["container"]},
+      "c": [{
+        "t": "header",
+        "a": {"class": ["row"]},
+        "c": [{
+          "t": "div",
+          "a": {"class": ["col-md-12"]},
+          "c": [{
+            "t": "h1",
+            "c": [{
+              "t": "text",
+              "text": "CrispyComments.biz"
+            }, {
+              "t": "small",
+              "c": [{
+                "t": "text",
+                "text": "Safe comments for a safe web"
+              }]
+            }]
+          }]
+        }]
+      },
+      {
+        "t": "article",
+        "a": {"class": ["row", "l-content"]},
+        "c": [{
+          "t": "ul",
+          "a": {"id": "comment-tabs", "class": ["nav", "nav-tabs"]},
+          "b": {
+            "tabs": [{
+              "map": {
+                "first-category-tab": "first-category-content",
+                "second-category-tab": "second-category-content"
+              }
+            }]
+          },
+          "c": [{
+            "t": "li",
+            "a": {"id": "first-category-tab"},
+            "c": [{
+              "t": "a",
+              "a": {"href": "#"},
+              "c": [{
+                "t": "text",
+                "text": "Category One"
+              }]
+            }]
+          }, {
+            "t": "li",
+            "a": {"id": "second-category-tab"},
+            "c": [{
+              "t": "a",
+              "a": {"href": "#"},
+              "c": [{
+                "t": "text",
+                "text": "Category Two"
+              }]
+            }]
+          }]
+        }, {
+          "t": "div",
+          "a": {"id": "first-category-content"},
+          "c": [{
+            "t": "h2",
+            "c": [{
+              "t": "text",
+              "text": "First Category"
+            }]
+          }, {
+            "t": "ul",
+            "a": {"class": ["comment-container"]},
+            "c": "%catOne%"
+          }, {
+            "t": "form",
+            "a": {"action": "/", "method": "post", "role": "form"},
+            "c": [{
+                "t": "input",
+                "a": {"type": "hidden", "name": "category", "value": "one"}
+              }, {
+                "t": "div",
+                "a": {"class": ["form-group"]},
+                "c": [{
+                  "t": "label",
+                  "a": {"for": "comment-one"},
+                  "c": [{
+                    "t": "text",
+                    "text": "Category One Comment"
+                  }]
+                }, {
+                  "t": "textarea",
+                  "a": {
+                    "name": "comment",
+                    "rows": "5",
+                    "id": "comment-one",
+                    "class": ["form-control"]
+                  }
+                }]
+              }, {
+                "t": "input",
+                "a": {"type": "submit", "value": "Submit", "class": ["btn", "btn-default"]}
+              }]
+          }]
+        }, {
+          "t": "div",
+          "a": {"id": "second-category-content"},
+          "c": [{
+            "t": "h2",
+            "c": [{
+              "t": "text",
+              "text": "Second Category"
+            }]
+          }, {
+            "t": "ul",
+            "a": {"class": ["comment-container"]},
+            "c": "%catTwo%"
+          }, {
+            "t": "form",
+            "a": {"action": "/", "method": "post", "role": "form"},
+            "c": [{
+              "t": "input",
+              "a": {"type": "hidden", "name": "category", "value": "two"}
+            }, {
+              "t": "div",
+              "a": {"class": ["form-group"]},
+              "c": [{
+                "t": "label",
+                "a": {"for": "comment-two"},
+                "c": [{
+                  "t": "text",
+                  "text": "Category Two Comment"
+                }]
+              }, {
+                "t": "textarea",
+                "a": {
+                  "name": "comment",
+                  "rows": "5",
+                  "id": "comment-twp",
+                  "class": ["form-control"]
+                }
+              }]
+            }, {
+              "t": "input",
+              "a": {"type": "submit", "value": "Submit", "class": ["btn", "btn-default"]}
+            }]
+          }]                              
+        }]
+      }]
+    }]
+  }]
+}

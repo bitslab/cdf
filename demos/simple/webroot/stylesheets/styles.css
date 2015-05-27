@@ -1,0 +1,97 @@
+/* line 4, ../sass/styles.sass */
+body {
+  background-color: #1089B2;
+}
+
+/* line 7, ../sass/styles.sass */
+header, article {
+  margin-bottom: 40px;
+}
+
+/* line 10, ../sass/styles.sass */
+.container {
+  background-color: white;
+}
+
+/* line 13, ../sass/styles.sass */
+.l-sidebar {
+  background-color: #FFAE59;
+}
+
+/* line 16, ../sass/styles.sass */
+form[name=tweet_form] {
+  padding: 1em;
+  background-color: #46D0FF;
+  margin-bottom: 40px;
+}
+/* line 20, ../sass/styles.sass */
+form[name=tweet_form] h2 {
+  margin-top: 0;
+}
+
+/* line 24, ../sass/styles.sass */
+.media-list .media-left {
+  min-width: 128px;
+}
+/* line 26, ../sass/styles.sass */
+.media-list .media-left img {
+  max-width: 128px;
+  max-height: auto;
+}
+
+/* line 31, ../sass/styles.sass */
+.slider li {
+  display: none;
+}
+/* line 33, ../sass/styles.sass */
+.slider li.active {
+  display: block;
+}
+
+/* line 36, ../sass/styles.sass */
+.slider-container {
+  width: 100%;
+}
+/* line 38, ../sass/styles.sass */
+.slider-container button, .slider-container ul {
+  display: inline-block;
+}
+/* line 40, ../sass/styles.sass */
+.slider-container .slider-button-disabled {
+  cursor: default;
+  color: #ddd;
+  background-color: #eee;
+}
+/* line 44, ../sass/styles.sass */
+.slider-container .slider {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 0;
+  max-width: 400px;
+}
+/* line 49, ../sass/styles.sass */
+.slider-container .slider img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: 300px;
+}
+/* line 54, ../sass/styles.sass */
+.slider-container .slider div {
+  text-align: center;
+}
+
+/* line 57, ../sass/styles.sass */
+.red {
+  background-color: red;
+}
+
+/* line 59, ../sass/styles.sass */
+.blue {
+  background-color: blue;
+}
+
+/* line 61, ../sass/styles.sass */
+.green {
+  background-color: green;
+}

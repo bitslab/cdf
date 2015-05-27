@@ -1,0 +1,1045 @@
+t: html
+s:
+  lang: en
+c:
+  - t: head
+    c:
+      - t: title
+        c:
+          - t: text
+            text: CDF Twitter
+      - t: meta
+        s:
+          charset: utf-8
+      - t: meta
+        s:
+          name: viewport
+          content: "width=device-width, initial-scale=1"
+      - t: link
+        s:
+          href: google.com/stylesheets/bootstrap.min.css
+          media: all
+          rel: stylesheet
+          type: text/css
+      - t: link
+        s:
+          href: /stylesheets/bootstrap-theme.min.css
+          media: all
+          rel: stylesheet
+          type: text/css
+      - t: link
+        s:
+          href: /stylesheets/styles.css
+          media: all
+          rel: stylesheet
+          type: text/css
+
+  - t: body
+    c:
+      - t: div
+        s: {class: [container]}
+        c:
+          - t: header
+            s: {class: [row]}
+            c:
+              - t: div
+                s: {class: [col-md-12]}
+                c:
+                  - t: h1
+                    s: {id: "main-bean"}
+                    c:
+                      - t: text
+                        text: CrispyTwitter.biz
+                      - t: small
+                        c:
+                          - t: text
+                            text: Cause why not?
+          - t: article
+            s: {class: [row, l-content]}
+            c:
+              - t: div
+                s: {class: [col-md-3, l-sidebar]}
+                c:
+                  - t: h2
+                    c:
+                      - t: text
+                        text: Your Profile
+                  - t: h3
+                    c: [{text: Details}]
+                  - t: dl
+                    s: {class: [well]}
+                    c:
+                      - t: dt
+                        c: [{text: Username}]
+                      - t: dd
+                        c: [{text: Judge Dredd}]
+                      - t: dt
+                        c: [{text: Location}]
+                      - t: dd
+                        c: [{text: "MegaCity One, USA"}]
+                      - t: dt
+                        c: [{text: Moto}]
+                      - t: dd
+                        c: [{text: "I am the law… and a lot of fun"}]
+                  - t: h3
+                    c: [{text: Stats}]
+                  - t: dl
+                    s: {class: [well]}
+                    c:
+                      - t: dt
+                        c: [{text: Arrests}]
+                      - t: dd
+                        c: [{text: "123"}]
+                      - t: dt
+                        c: [{text: Years in Isocube}]
+                      - t: dd
+                        c: [{text: "4"}]
+                      - t: dt
+                        c: [{text: Who Are You}]
+                      - t: dd
+                        c: [{text: The Law}]
+              - t: div
+                s: {class: [col-md-9, l-main]}
+                c:
+                  - t: form
+                    s: {name: tweet_form, method: POST, action: /tweet, class: ['tweet-form']}
+                    c:
+                      - t: h2
+                        c: [{text: New Tweet}]
+                      - t: div
+                        s: {class: [form-group]}
+                        c:
+                          - t: label
+                            s: {for: subject}
+                            c: [{text: "Tweet Subject"}]
+                          - t: input
+                            s:
+                              type: text
+                              id: subject
+                              name: subject
+                              class: [form-control]
+                              placeholder: Enter a subject
+                      - t: div
+                        s: {class: [form-group]}
+                        c:
+                          - t: label
+                            s: {for: tweet}
+                            c: [{text: "Tweet Body"}]
+                          - t: textarea
+                            s: {class: [form-control], id: tweet, name: tweet}
+                      - t: button
+                        s: {class: [btn, btn-default, btn-primary], type: submit}
+                        c: [{text: Submit}]
+                        e:
+                          - t: click
+                            b:
+                              - t: update
+                                s:
+                                  url: /update.html
+                                  method: GET
+                                  values:
+                                    -
+                                      - "#subject"
+                                      - subject-value
+                                    -
+                                      - "#tweet"
+                                      - tweet-value
+                                    -
+                                      - "#automatic-slider .active"
+                                      - slider-value
+                                  loading:
+                                    -
+                                      - ".tweet-form input, .tweet-form button, .tweet-form textarea"
+                                      - t: properties
+                                        s:
+                                          change:
+                                            disabled: disabled
+                                    -
+                                      - ".tweet-form"
+                                      - t: update-subtree
+                                        s:
+                                          action: append
+                                          change:
+                                            - t: p
+                                              s: {class: [status, bg-warning]}
+                                              c: [{text: loading...}]
+                                  error:
+                                    -
+                                      - ".tweet-form input, .tweet-form button, .tweet-form textarea"
+                                      - t: properties
+                                        s:
+                                          change:
+                                            disabled: null
+                                    -
+                                      - ".tweet-form .status"
+                                      - t: remove-subtree
+                                        s:
+                                          inclusive: true
+                                    -
+                                      - ".tweet-form"
+                                      - t: update-subtree
+                                        s:
+                                          action: append
+                                          change:
+                                            - t: p
+                                              s: {class: [status, bg-danger]}
+                                              c: [{text: there was an error}]
+                                  complete:
+                                    -
+                                      - ".tweet-form input, .tweet-form button, .tweet-form textarea"
+                                      - t: properties
+                                        s:
+                                          change:
+                                            disabled: null
+                                    -
+                                      - ".tweet-form .status"
+                                      - t: remove-subtree
+                                        s:
+                                          inclusive: true
+                                  targets:
+                                    - ".tweet-form"
+
+
+
+                  - t: div
+                    s: {id: tab-holder}
+                    c:
+                    - t: ul
+                      s: {id: tweets-tabs, class: [nav, nav-tabs]}
+                      c:
+                        - t: li
+                          s: {id: recent-tweets-tab, class: ["first"]}
+                          c:
+                            - t: a
+                              s: {href: "#"}
+                              c:
+                              - text: "Recent Tweets"
+                          e:
+                            - t: click
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: "tweets-tabs"
+                                    index: 0
+                                    initial: 0
+                                    wrap: true
+                                    states:
+                                      -
+                                        -
+                                          - "#tweets-tabs li"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["active"]
+                                        -
+                                          - ".tweets-tabs-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["hidden"]
+                                        -
+                                          - "#tweets-tabs li.first"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["active"]
+                                        -
+                                          - "#recent-tweets-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["hidden"]
+
+                                      -
+                                        -
+                                          - "#tweets-tabs li"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["active"]
+                                        -
+                                          - ".tweets-tabs-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["hidden"]
+                                        -
+                                          - "#tweets-tabs li.second"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["active"]
+                                        -
+                                          - "#sliders-demo-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["hidden"]
+
+                                      -
+                                        -
+                                          - "#tweets-tabs li"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["active"]
+                                        -
+                                          - ".tweets-tabs-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["hidden"]
+                                        -
+                                          - "#tweets-tabs li.third"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["active"]
+                                        -
+                                          - "#states-demo-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["hidden"]
+
+
+                                      -
+                                        -
+                                          - "#tweets-tabs li"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["active"]
+                                        -
+                                          - ".tweets-tabs-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["hidden"]
+                                        -
+                                          - "#tweets-tabs li.fourth"
+                                          - t: "classes"
+                                            s:
+                                              action: "add"
+                                              change: ["active"]
+                                        -
+                                          - "#updates-demo-content"
+                                          - t: "classes"
+                                            s:
+                                              action: "remove"
+                                              change: ["hidden"]
+
+                        - t: li
+                          s: {id: sliders-demo-tab, class: ["second"]}
+                          c:
+                            - t: a
+                              s: {href: "#"}
+                              c:
+                              - text: "Sliding stuff"
+                          e:
+                            - t: click
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: "tweets-tabs"
+                                    index: 1
+
+                        - t: li
+                          s: {id: states-demo-tab, class: ["third"]}
+                          c:
+                            - t: a
+                              s: {href: "#"}
+                              c:
+                              - text: "States Demos"
+                          e:
+                            - t: click
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: "tweets-tabs"
+                                    index: 2
+
+                        - t: li
+                          s: {id: updates-demo-tab, class: ["fourth"]}
+                          c:
+                            - t: a
+                              s: {href: "#"}
+                              c:
+                              - text: "Update Demos"
+                          e:
+                            - t: click
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: "tweets-tabs"
+                                    index: 3
+
+                    # Begin Recent tweets section
+                    - t: div
+                      s: {id: recent-tweets-content, class: ["tweets-tabs-content"]}
+                      c:
+                        - t: h2
+                          c: [{text: Recent Tweets}]
+                        - t: ul
+                          s: {class: [media-list]}
+                          c:
+                            - t: li
+                              s: {class: [media]}
+                              c:
+                                - t: a
+                                  s: {class: [media-left], href: "#"}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweet Image", src: "/images/cute-cat.jpg"}
+                                - t: div
+                                  s: {class: [media-body]}
+                                  c:
+                                    - t: h4
+                                      s: {class: [media-heading]}
+                                      c:
+                                        - t: a
+                                          s: {href: "#"}
+                                          c: [{text: "@oldman3000"}]
+                                    - t: p
+                                      c: [{text: "<script>alert('steal everthing');</script>"}]
+                            - t: li
+                              s: {class: [media]}
+                              c:
+                                - t: a
+                                  s: {class: [media-left], href: "#"}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweeted Image", src: "/images/cute-as-shit-rabbit.jpg"}
+                                - t: div
+                                  s: {class: [media-body]}
+                                  c:
+                                    - t: h4
+                                      s: {class: [media-heading]}
+                                      c:
+                                        - t: a
+                                          s: {href: "#"}
+                                          c: [{text: "@candylover4life"}]
+                                    - t: p
+                                      c: [{text: "Mama's got that great new slow mo'.  Going to have a great time tonight ya'll"}]
+                            - t: li
+                              s: {class: [media]}
+                              c:
+                                - t: a
+                                  s: {class: [media-left], href: "#"}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweeted Image", src: "/images/dog-teddy.jpg"}
+                                - t: div
+                                  s: {class: [media-body]}
+                                  c:
+                                    - t: h4
+                                      s: {class: [media-heading]}
+                                      c:
+                                        - t: a
+                                          s: {href: "#"}
+                                          c: [{text: "@teddytowntonight"}]
+                                    - t: p
+                                      c: [{text: "I think some guy got smashed by the door out front.  Thats not good.  Its even a little bad when you think about it.  Doors aren't meant to fall on people"}]
+                            - t: li
+                              s: {class: [media]}
+                              c:
+                                - t: a
+                                  s: {class: [media-left], href: "#"}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweeted Image", src: "/images/sick-o-cat.jpg"}
+                                - t: div
+                                  s: {class: [media-body]}
+                                  c:
+                                    - t: h4
+                                      s: {class: [media-heading]}
+                                      c:
+                                        - t: a
+                                          s: {href: "#"}
+                                          c: [{text: "@catfancymissnancy"}]
+                                    - t: p
+                                      c: [{text: "Maybe he deserved it.  Whos to say?  You know his story, not is life bro.  Check your privilage."}]
+
+                    # Begin Sliding Example section
+                    - t: div
+                      s: {id: sliders-demo-content, class: ["tweets-tabs-content"]}
+                      c:
+                        - t: h2
+                          c: [{text: Sliding Demos}]
+                        - t: h3
+                          c: [{text: Basic Auto Sliding Example}]
+                        - t: ul
+                          s: {id: automatic-slider, class: ["slider"]}
+                          e:
+                            - t: mouseover
+                              b:
+                                - t: modify-timer
+                                  s:
+                                    timerId: automatic-slider-timer
+                                    action: stop
+
+                            - t: mouseout
+                              b:
+                                - t: modify-timer
+                                  s:
+                                    timerId: automatic-slider-timer
+                                    action: start
+
+                            - t: timer
+                              s:
+                                ms: 500
+                                timerId: automatic-slider-timer
+                                repeat: true
+                                immediate: true
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: automatic-slider-states
+                                    wrap: true
+                                    advance: true
+                                    initial: 0
+                                    states:
+                                      -
+                                        -
+                                          - "#automatic-slider li"
+                                          - t: classes
+                                            s:
+                                              action: remove
+                                              change: [active]
+                                        -
+                                          - "#automatic-slider li.first"
+                                          - t: classes
+                                            s:
+                                              action: add
+                                              change: [active]
+
+                                      -
+                                        -
+                                          - "#automatic-slider li"
+                                          - t: classes
+                                            s:
+                                              action: remove
+                                              change: [active]
+                                        -
+                                          - "#automatic-slider li.second"
+                                          - t: classes
+                                            s:
+                                              action: add
+                                              change: [active]
+
+                                      -
+                                        -
+                                          - "#automatic-slider li"
+                                          - t: classes
+                                            s:
+                                              action: remove
+                                              change: [active]
+                                        -
+                                          - "#automatic-slider li.third"
+                                          - t: classes
+                                            s:
+                                              action: add
+                                              change: [active]
+
+                                      -
+                                        -
+                                          - "#automatic-slider li"
+                                          - t: classes
+                                            s:
+                                              action: remove
+                                              change: [active]
+                                        -
+                                          - "#automatic-slider li.fourth"
+                                          - t: classes
+                                            s:
+                                              action: add
+                                              change: [active]
+
+
+                          c:
+                            - t: li
+                              s: {class: [first]}
+                              c:
+                                - {text: "first message"}
+                            - t: li
+                              s: {class: [second]}
+                              c:
+                                - {text: "<script>alert(hi)</script> message"}
+                            - t: li
+                              s: {class: [third]}
+                              c:
+                                - {text: "third message"}
+                            - t: li
+                              s: {class: [fourth]}
+                              c:
+                                - {text: "fourth message"}
+                        - t: h3
+                          c: [{text: Sliding With Buttons (circular)}]
+                        - t: div
+                          s: {class: ["slider-container"]}
+                          c:
+                            - t: button
+                              s: {id: slider-prev-button, class: [btn]}
+                              c:
+                                - {text: "Prev"}
+                              e:
+                                - t: click
+                                  b:
+                                    - t: states
+                                      s:
+                                        stateId: sliding-with-buttons-state
+                                        wrap: true
+                                        advance: false
+                                        initial: 0
+                                        states:
+                                          -
+                                            -
+                                              - "#sliding-with-buttons-slider li"
+                                              - t: classes
+                                                s:
+                                                  action: remove
+                                                  change: [active]
+                                            -
+                                              - "#sliding-with-buttons-slider li.first"
+                                              - t: classes
+                                                s:
+                                                  action: add
+                                                  change: [active]
+                                          -
+                                            -
+                                              - "#sliding-with-buttons-slider li"
+                                              - t: classes
+                                                s:
+                                                  action: remove
+                                                  change: [active]
+                                            -
+                                              - "#sliding-with-buttons-slider li.second"
+                                              - t: classes
+                                                s:
+                                                  action: add
+                                                  change: [active]
+                                          -
+                                            -
+                                              - "#sliding-with-buttons-slider li"
+                                              - t: classes
+                                                s:
+                                                  action: remove
+                                                  change: [active]
+                                            -
+                                              - "#sliding-with-buttons-slider li.third"
+                                              - t: classes
+                                                s:
+                                                  action: add
+                                                  change: [active]
+
+
+                            - t: ul
+                              s: {id: sliding-with-buttons-slider, class: [slider]}
+                              c:
+                                - t: li
+                                  s: {class: [first]}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Judge Dredd", src: "/images/judge-dredd.jpg"}
+                                    - t: div
+                                      c: [{text: "Picture 1"}]
+                                - t: li
+                                  s: {class: [second]}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweeted Image", src: "/images/sick-o-cat.jpg"}
+                                    - t: div
+                                      c: [{text: "Picture 2"}]
+                                - t: li
+                                  s: {class: [third]}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweeted Image", src: "/images/dog-teddy.jpg"}
+                                    - t: div
+                                      c: [{text: "Picture 3"}]
+                            - t: "button"
+                              s: {id: slider-next-button, class: [btn]}
+                              e:
+                                - t: click
+                                  b:
+                                    - t: states
+                                      s:
+                                        stateId: sliding-with-buttons-state
+                                        advance: true
+                              c:
+                                - {text: Next}
+
+                        - t: h3
+                          c: [{text: Sliding With Buttons (not circular)}]
+                        - t: div
+                          s: {class: [slider-container, slider-non-circular-container]}
+                          c:
+                            - t: button
+                              s: {id: slider-non-circular-button-prev, class: [btn]}
+                              c:
+                                - {text: "Prev"}
+                              e:
+                                - t: click
+                                  b:
+                                    - t: states
+                                      s:
+                                        stateId: slider-non-circular
+                                        wrap: false
+                                        advance: false
+                                        initial: 0
+                                        states:
+                                          -
+                                            -
+                                              - "#slider-non-circular-button-prev"
+                                              - t: properties
+                                                s:
+                                                  change:
+                                                    disabled: disabled
+
+                                            -
+                                              - "#slider-non-circular li"
+                                              - t: classes
+                                                s:
+                                                  action: remove
+                                                  change: [active]
+
+                                            -
+                                              - "#slider-non-circular li.first"
+                                              - t: classes
+                                                s:
+                                                  action: add
+                                                  change: [active]
+                                          -
+                                            -
+                                              - "#slider-non-circular-button-prev, #slider-non-circular-button-next"
+                                              - t: properties
+                                                s:
+                                                  change:
+                                                    disabled: null
+
+                                            -
+                                              - "#slider-non-circular li"
+                                              - t: classes
+                                                s:
+                                                  action: remove
+                                                  change: [active]
+
+                                            -
+                                              - "#slider-non-circular li.second"
+                                              - t: classes
+                                                s:
+                                                  action: add
+                                                  change: [active]
+
+                                          -
+                                            -
+                                              - "#slider-non-circular-button-next"
+                                              - t: properties
+                                                s:
+                                                  change:
+                                                    disabled: disabled
+
+                                            -
+                                              - "#slider-non-circular li"
+                                              - t: classes
+                                                s:
+                                                  action: remove
+                                                  change: [active]
+
+                                            -
+                                              - "#slider-non-circular li.third"
+                                              - t: classes
+                                                s:
+                                                  action: add
+                                                  change: [active]
+
+                            - t: ul
+                              s: {id: slider-non-circular, class: [slider]}
+                              c:
+                                - t: li
+                                  s: {class: [first]}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Judge Dredd", src: "/images/judge-dredd.jpg"}
+                                    - t: div
+                                      c: [{text: "Picture 1"}]
+                                - t: li
+                                  s: {class: [second]}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweeted Image", src: "/images/sick-o-cat.jpg"}
+                                    - t: div
+                                      c: [{text: "Picture 2"}]
+                                - t: li
+                                  s: {class: [third]}
+                                  c:
+                                    - t: img
+                                      s: {alt: "Tweeted Image", src: "/images/dog-teddy.jpg"}
+                                    - t: div
+                                      c: [{text: "Picture 3"}]
+
+                            - t: "button"
+                              s: {id: slider-non-circular-button-next, class: [btn]}
+                              e:
+                                - t: click
+                                  b:
+                                    - t: states
+                                      s:
+                                        stateId: slider-non-circular
+                                        advance: true
+                              c:
+                                - {text: Next}
+
+                    # Beign states section
+                    - t: div
+                      s: {id: states-demo-content, class: ["tweets-tabs-content"]}
+                      c:
+                        - t: h2
+                          c: [{text: States Demos}]
+
+                        - t: h3
+                          c: [{text: Color Changes}]
+                        - t: ul
+                          s: {id: silly-state-button-demo}
+                          c:
+                            - t: li
+                              s: {class: [stripe-one]}
+                              c: [{text: Stripe One}]
+                            - t: li
+                              s: {class: [stripe-two]}
+                              c: [{text: Stripe Two}]
+                            - t: li
+                              s: {class: [stripe-three]}
+                              c: [{text: Stripe Three}]
+                        - t: button
+                          s: {id: color-rotate-button}
+                          c: [{text: Rotate Colors}]
+                          e:
+                            - t: click
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: color-rotate-state
+                                    wrap: true
+                                    advance: true
+                                    states:
+                                      -
+                                        -
+                                          - "#silly-state-button-demo li"
+                                          - t: "classes"
+                                            s:
+                                              action: remove
+                                              change: ["red", "blue", "green"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-one"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["red"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-two"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["blue"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-three"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["green"]
+
+                                      -
+                                        -
+                                          - "#silly-state-button-demo li"
+                                          - t: "classes"
+                                            s:
+                                              action: remove
+                                              change: ["red", "blue", "green"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-one"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["green"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-two"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["red"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-three"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["blue"]
+
+                                      -
+                                        -
+                                          - "#silly-state-button-demo li"
+                                          - t: "classes"
+                                            s:
+                                              action: remove
+                                              change: ["red", "blue", "green"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-one"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["blue"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-two"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["green"]
+                                        -
+                                          - "#silly-state-button-demo li.stripe-three"
+                                          - t: "classes"
+                                            s:
+                                              action: add
+                                              change: ["red"]
+
+
+
+                        - t: h3
+                          c: [{text: Dropdown State}]
+                        - t: div
+                          s: {id: dropdown-state-example}
+                          c:
+                            - text: "Mouse over Menu"
+                            - t: ul
+                              s: {class: [dropdown-menu-demo, hidden]}
+                              c:
+                                - t: li
+                                  c: [{text: Menu Item One}]
+                                - t: li
+                                  c: [{text: Menu Item One}]
+
+                          e:
+                            - t: mouseover
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: dropdown-menu-states
+                                    index: 0
+                                    states:
+                                      -
+                                        -
+                                          - ".dropdown-menu-demo"
+                                          - t: classes
+                                            s:
+                                              action: remove
+                                              change: [hidden]
+                                      -
+                                        -
+                                          - ".dropdown-menu-demo"
+                                          - t: classes
+                                            s:
+                                              action: add
+                                              change: [hidden]
+                            - t: mouseout
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: dropdown-menu-states
+                                    index: 1
+
+                        - t: h3
+                          c: [{text: Evergrowing menu With Structural Deltas}]
+                        - t: div
+                          s: {id: dropdown-delta-subtree-example}
+                          c:
+                            - text: "Mouse over Menu"
+                            - t: ul
+                              s: {class: [dropdown-delta-subtree-demo]}
+                              c:
+                                - t: li
+                                  c: [{text: well its something}]
+
+                          e:
+                            - t: mouseenter
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: dropdown-delta-subtree-states
+                                    index: 0
+                                    states:
+                                      -
+                                        -
+                                          - ".dropdown-delta-subtree-demo"
+                                          - t: update-subtree
+                                            s:
+                                              action: append
+                                              change:
+                                                - t: "li"
+                                                  s: {class: [first]}
+                                                  c: [{text: first added child}]
+                                                - t: li
+                                                  s: {class: [second]}
+                                                  c: [{text: "second added child"}]
+
+                                      -
+                                        -
+                                          - ".dropdown-delta-subtree-demo .second"
+                                          - t: remove-subtree
+                                            s:
+                                              inclusive: true
+
+                            - t: mouseleave
+                              b:
+                                - t: states
+                                  s:
+                                    stateId: dropdown-delta-subtree-states
+                                    index: 1
+
+                    # Beign states section
+                    - t: div
+                      s: {id: updates-demo-content, class: ["tweets-tabs-content"]}
+                      c:
+                        - t: h2
+                          c: [{text: Updates Demo}]
+                        - t: label
+                          c: [{text: Integer}]
+                        - t: input
+                          s: {type: number, class: [math-updates-input]}
+                        - t: label
+                          c: [{text: Result}]
+                        - t: input
+                          s: {type: text, class: [math-updates-result], disabled: disabled}
+                        - t: button
+                          s: {class: [math-updates-button, btn, btn-primary]}
+                          c: [{text: Double}]
+                          e:
+                            - t: click
+                              b:
+                                - t: update
+                                  s:
+                                    url: "/double"
+                                    method: POST
+                                    loading:
+                                      -
+                                        - ".math-updates-button"
+                                        - t: properties
+                                          s:
+                                            change:
+                                              disabled: disabled
+                                      -
+                                        - ".math-updates-result"
+                                        - t: properties
+                                          s:
+                                            change:
+                                              value: "loading…"
+                                    complete:
+                                      -
+                                        - ".math-updates-button"
+                                        - t: properties
+                                          s:
+                                            change:
+                                              disabled: null
+
+                                    targets:
+                                      - ".math-updates-result"
+                                    values:
+                                      - [".math-updates-input", "value"]

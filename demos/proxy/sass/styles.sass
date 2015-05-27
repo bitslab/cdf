@@ -1,0 +1,62 @@
+$main-color: #1089B2
+$section-margin: 40px
+
+body
+  background-color: $main-color
+
+header, article
+  margin-bottom: $section-margin
+
+.container
+  background-color: white
+
+.l-sidebar
+  background-color: #FFAE59
+
+form[name=tweet_form]
+  padding: 1em
+  background-color: #46D0FF
+  margin-bottom: $section-margin
+  h2
+    margin-top: 0
+
+.media-list
+  .media-left
+    min-width: 128px
+    img
+      max-width: 128px
+      max-height: auto
+
+.slider
+  li
+    display: none
+    &.active
+      display: block
+
+.slider-container
+  width: 100%
+  button, ul
+    display: inline-block
+  .slider-button-disabled
+    cursor: default
+    color: #ddd
+    background-color: #eee
+  .slider
+    margin-left: 20px
+    margin-right: 20px
+    padding: 0
+    max-width: 400px
+    img
+      max-width: 100%
+      width: auto
+      height: auto
+      max-height: 300px
+    div
+      text-align: center
+
+.red
+  background-color: red
+.blue
+  background-color: blue
+.green
+  background-color: green

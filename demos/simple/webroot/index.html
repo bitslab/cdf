@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>
+CDF Twitter
+</title>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="google.com/stylesheets/bootstrap.min.css" media="all" rel="stylesheet" type="text/css">
+
+<link href="/stylesheets/bootstrap-theme.min.css" media="all" rel="stylesheet" type="text/css">
+
+<link href="/stylesheets/styles.css" media="all" rel="stylesheet" type="text/css">
+
+<meta http-equiv="Content-Security-Policy" content="referrer never">
+
+</head>
+<body>
+<div class="container">
+<header class="row">
+<div class="col-md-12">
+<h1 id="main-bean">
+CrispyTwitter.biz
+<small>
+Cause why not?
+</small>
+</h1>
+</div>
+</header>
+<article class="row l-content">
+<div class="col-md-3 l-sidebar">
+<h2>
+Your Profile
+</h2>
+<h3>
+Details
+</h3>
+<dl class="well">
+<dt>
+Username
+</dt>
+<dd>
+Judge Dredd
+</dd>
+<dt>
+Location
+</dt>
+<dd>
+MegaCity One, USA
+</dd>
+<dt>
+Moto
+</dt>
+<dd>
+I am the law… and a lot of fun
+</dd>
+</dl>
+<h3>
+Stats
+</h3>
+<dl class="well">
+<dt>
+Arrests
+</dt>
+<dd>
+123
+</dd>
+<dt>
+Years in Isocube
+</dt>
+<dd>
+4
+</dd>
+<dt>
+Who Are You
+</dt>
+<dd>
+The Law
+</dd>
+</dl>
+</div>
+<div class="col-md-9 l-main">
+<form name="tweet_form" method="POST" action="/tweet" class="tweet-form">
+<h2>
+New Tweet
+</h2>
+<div class="form-group">
+<label for="subject">
+Tweet Subject
+</label>
+<input type="text" id="subject" name="subject" class="form-control" placeholder="Enter a subject">
+
+</div>
+<div class="form-group">
+<label for="tweet">
+Tweet Body
+</label>
+<textarea class="form-control" id="tweet" name="tweet">
+</textarea>
+</div>
+<button class="btn btn-default btn-primary" type="submit" id="cdf-bbad8eab-20cb-4654-8af7-cfe668839f6a">
+Submit
+</button>
+</form>
+<div id="tab-holder">
+<ul id="tweets-tabs" class="nav nav-tabs">
+<li id="recent-tweets-tab" class="first">
+<a href="#" rel="noreferrer">
+Recent Tweets
+</a>
+</li>
+<li id="sliders-demo-tab" class="second">
+<a href="#" rel="noreferrer">
+Sliding stuff
+</a>
+</li>
+<li id="states-demo-tab" class="third">
+<a href="#" rel="noreferrer">
+States Demos
+</a>
+</li>
+<li id="updates-demo-tab" class="fourth">
+<a href="#" rel="noreferrer">
+Update Demos
+</a>
+</li>
+</ul>
+<div id="recent-tweets-content" class="tweets-tabs-content">
+<h2>
+Recent Tweets
+</h2>
+<ul class="media-list">
+<li class="media">
+<a class="media-left" href="#" rel="noreferrer">
+<img alt="Tweet Image" src="/images/cute-cat.jpg">
+
+</a>
+<div class="media-body">
+<h4 class="media-heading">
+<a href="#" rel="noreferrer">
+@oldman3000
+</a>
+</h4>
+<p>
+&lt;script&gt;alert(&#39;steal everthing&#39;);&lt;/script&gt;
+</p>
+</div>
+</li>
+<li class="media">
+<a class="media-left" href="#" rel="noreferrer">
+<img alt="Tweeted Image" src="/images/cute-as-shit-rabbit.jpg">
+
+</a>
+<div class="media-body">
+<h4 class="media-heading">
+<a href="#" rel="noreferrer">
+@candylover4life
+</a>
+</h4>
+<p>
+Mama&#39;s got that great new slow mo&#39;.  Going to have a great time tonight ya&#39;ll
+</p>
+</div>
+</li>
+<li class="media">
+<a class="media-left" href="#" rel="noreferrer">
+<img alt="Tweeted Image" src="/images/dog-teddy.jpg">
+
+</a>
+<div class="media-body">
+<h4 class="media-heading">
+<a href="#" rel="noreferrer">
+@teddytowntonight
+</a>
+</h4>
+<p>
+I think some guy got smashed by the door out front.  Thats not good.  Its even a little bad when you think about it.  Doors aren&#39;t meant to fall on people
+</p>
+</div>
+</li>
+<li class="media">
+<a class="media-left" href="#" rel="noreferrer">
+<img alt="Tweeted Image" src="/images/sick-o-cat.jpg">
+
+</a>
+<div class="media-body">
+<h4 class="media-heading">
+<a href="#" rel="noreferrer">
+@catfancymissnancy
+</a>
+</h4>
+<p>
+Maybe he deserved it.  Whos to say?  You know his story, not is life bro.  Check your privilage.
+</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="sliders-demo-content" class="tweets-tabs-content">
+<h2>
+Sliding Demos
+</h2>
+<h3>
+Basic Auto Sliding Example
+</h3>
+<ul id="automatic-slider" class="slider">
+<li class="first">
+first message
+</li>
+<li class="second">
+&lt;script&gt;alert(hi)&lt;/script&gt; message
+</li>
+<li class="third">
+third message
+</li>
+<li class="fourth">
+fourth message
+</li>
+</ul>
+<h3>
+Sliding With Buttons (circular)
+</h3>
+<div class="slider-container">
+<button id="slider-prev-button" class="btn">
+Prev
+</button>
+<ul id="sliding-with-buttons-slider" class="slider">
+<li class="first">
+<img alt="Judge Dredd" src="/images/judge-dredd.jpg">
+
+<div>
+Picture 1
+</div>
+</li>
+<li class="second">
+<img alt="Tweeted Image" src="/images/sick-o-cat.jpg">
+
+<div>
+Picture 2
+</div>
+</li>
+<li class="third">
+<img alt="Tweeted Image" src="/images/dog-teddy.jpg">
+
+<div>
+Picture 3
+</div>
+</li>
+</ul>
+<button id="slider-next-button" class="btn">
+Next
+</button>
+</div>
+<h3>
+Sliding With Buttons (not circular)
+</h3>
+<div class="slider-container slider-non-circular-container">
+<button id="slider-non-circular-button-prev" class="btn">
+Prev
+</button>
+<ul id="slider-non-circular" class="slider">
+<li class="first">
+<img alt="Judge Dredd" src="/images/judge-dredd.jpg">
+
+<div>
+Picture 1
+</div>
+</li>
+<li class="second">
+<img alt="Tweeted Image" src="/images/sick-o-cat.jpg">
+
+<div>
+Picture 2
+</div>
+</li>
+<li class="third">
+<img alt="Tweeted Image" src="/images/dog-teddy.jpg">
+
+<div>
+Picture 3
+</div>
+</li>
+</ul>
+<button id="slider-non-circular-button-next" class="btn">
+Next
+</button>
+</div>
+</div>
+<div id="states-demo-content" class="tweets-tabs-content">
+<h2>
+States Demos
+</h2>
+<h3>
+Color Changes
+</h3>
+<ul id="silly-state-button-demo">
+<li class="stripe-one">
+Stripe One
+</li>
+<li class="stripe-two">
+Stripe Two
+</li>
+<li class="stripe-three">
+Stripe Three
+</li>
+</ul>
+<button id="color-rotate-button">
+Rotate Colors
+</button>
+<h3>
+Dropdown State
+</h3>
+<div id="dropdown-state-example">
+Mouse over Menu
+<ul class="dropdown-menu-demo hidden">
+<li>
+Menu Item One
+</li>
+<li>
+Menu Item One
+</li>
+</ul>
+</div>
+<h3>
+Evergrowing menu With Structural Deltas
+</h3>
+<div id="dropdown-delta-subtree-example">
+Mouse over Menu
+<ul class="dropdown-delta-subtree-demo">
+<li>
+well its something
+</li>
+</ul>
+</div>
+</div>
+<div id="updates-demo-content" class="tweets-tabs-content">
+<h2>
+Updates Demo
+</h2>
+<label>
+Integer
+</label>
+<input type="number" class="math-updates-input">
+
+<label>
+Result
+</label>
+<input type="text" class="math-updates-result" disabled="disabled">
+
+<button class="math-updates-button btn btn-primary" id="cdf-38e09a1b-9016-4716-8ac9-bca8dd1b0a0b">
+Double
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+<script type='text/javascript' src='crisp-client/contrib/jquery.min.js'></script>
+<script type='text/javascript' src='crisp-client/js/crisp.js'></script>
+<script type='text/javascript' src='crisp-client/js/events/basic.js'></script>
+<script type='text/javascript' src='crisp-client/js/behaviors/update.js'></script>
+<script type='text/javascript' src='crisp-client/js/deltas/attributes.js'></script>
+<script type='text/javascript' src='crisp-client/js/deltas/structure.js'></script>
+<script type='text/javascript' src='crisp-client/js/behaviors/states.js'></script>
+<script type='text/javascript' src='crisp-client/js/behaviors/modify-timer.js'></script>
+<script type='text/javascript' src='crisp-client/js/events/timer.js'></script>
+<script type='text/javascript'>
+window.CRISP.eventInstances = [{"t":"click","s":{"targetId":"cdf-bbad8eab-20cb-4654-8af7-cfe668839f6a"},"b":[{"t":"update","s":{"url":"/update.html","method":"GET","timeout":10,"values":[["#subject","subject-value"],["#tweet","tweet-value"],["#automatic-slider .active","slider-value"]],"targets":[".tweet-form"],"loading":[[".tweet-form input, .tweet-form button, .tweet-form textarea",{"t":"properties","s":{"change":{"disabled":"disabled"}}}],[".tweet-form",{"t":"update-subtree","s":{"action":"append","change":"<p class=\"status bg-warning\">\nloading...\n</p>"}}]],"error":[[".tweet-form input, .tweet-form button, .tweet-form textarea",{"t":"properties","s":{"change":{"disabled":null}}}],[".tweet-form .status",{"t":"remove-subtree","s":{"inclusive":true}}],[".tweet-form",{"t":"update-subtree","s":{"action":"append","change":"<p class=\"status bg-danger\">\nthere was an error\n</p>"}}]],"complete":[[".tweet-form input, .tweet-form button, .tweet-form textarea",{"t":"properties","s":{"change":{"disabled":null}}}],[".tweet-form .status",{"t":"remove-subtree","s":{"inclusive":true}}]]}}]},{"t":"click","s":{"targetId":"recent-tweets-tab"},"b":[{"t":"states","s":{"states":[[["#tweets-tabs li",{"t":"classes","s":{"action":"remove","change":["active"]}}],[".tweets-tabs-content",{"t":"classes","s":{"action":"add","change":["hidden"]}}],["#tweets-tabs li.first",{"t":"classes","s":{"action":"add","change":["active"]}}],["#recent-tweets-content",{"t":"classes","s":{"action":"remove","change":["hidden"]}}]],[["#tweets-tabs li",{"t":"classes","s":{"action":"remove","change":["active"]}}],[".tweets-tabs-content",{"t":"classes","s":{"action":"add","change":["hidden"]}}],["#tweets-tabs li.second",{"t":"classes","s":{"action":"add","change":["active"]}}],["#sliders-demo-content",{"t":"classes","s":{"action":"remove","change":["hidden"]}}]],[["#tweets-tabs li",{"t":"classes","s":{"action":"remove","change":["active"]}}],[".tweets-tabs-content",{"t":"classes","s":{"action":"add","change":["hidden"]}}],["#tweets-tabs li.third",{"t":"classes","s":{"action":"add","change":["active"]}}],["#states-demo-content",{"t":"classes","s":{"action":"remove","change":["hidden"]}}]],[["#tweets-tabs li",{"t":"classes","s":{"action":"remove","change":["active"]}}],[".tweets-tabs-content",{"t":"classes","s":{"action":"add","change":["hidden"]}}],["#tweets-tabs li.fourth",{"t":"classes","s":{"action":"add","change":["active"]}}],["#updates-demo-content",{"t":"classes","s":{"action":"remove","change":["hidden"]}}]]],"stateId":"tweets-tabs","wrap":true,"advance":true,"index":0,"initial":0}}]},{"t":"click","s":{"targetId":"sliders-demo-tab"},"b":[{"t":"states","s":{"stateId":"tweets-tabs","wrap":false,"advance":true,"index":1}}]},{"t":"click","s":{"targetId":"states-demo-tab"},"b":[{"t":"states","s":{"stateId":"tweets-tabs","wrap":false,"advance":true,"index":2}}]},{"t":"click","s":{"targetId":"updates-demo-tab"},"b":[{"t":"states","s":{"stateId":"tweets-tabs","wrap":false,"advance":true,"index":3}}]},{"t":"mouseover","s":{"targetId":"automatic-slider"},"b":[{"t":"modify-timer","s":{"timerId":"automatic-slider-timer","action":"stop"}}]},{"t":"mouseout","s":{"targetId":"automatic-slider"},"b":[{"t":"modify-timer","s":{"timerId":"automatic-slider-timer","action":"start"}}]},{"t":"timer","s":{"ms":500,"timerId":"automatic-slider-timer","repeat":true,"immediate":true},"b":[{"t":"states","s":{"states":[[["#automatic-slider li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#automatic-slider li.first",{"t":"classes","s":{"action":"add","change":["active"]}}]],[["#automatic-slider li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#automatic-slider li.second",{"t":"classes","s":{"action":"add","change":["active"]}}]],[["#automatic-slider li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#automatic-slider li.third",{"t":"classes","s":{"action":"add","change":["active"]}}]],[["#automatic-slider li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#automatic-slider li.fourth",{"t":"classes","s":{"action":"add","change":["active"]}}]]],"stateId":"automatic-slider-states","wrap":true,"advance":true,"initial":0}}]},{"t":"click","s":{"targetId":"slider-prev-button"},"b":[{"t":"states","s":{"states":[[["#sliding-with-buttons-slider li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#sliding-with-buttons-slider li.first",{"t":"classes","s":{"action":"add","change":["active"]}}]],[["#sliding-with-buttons-slider li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#sliding-with-buttons-slider li.second",{"t":"classes","s":{"action":"add","change":["active"]}}]],[["#sliding-with-buttons-slider li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#sliding-with-buttons-slider li.third",{"t":"classes","s":{"action":"add","change":["active"]}}]]],"stateId":"sliding-with-buttons-state","wrap":true,"advance":false,"initial":0}}]},{"t":"click","s":{"targetId":"slider-next-button"},"b":[{"t":"states","s":{"stateId":"sliding-with-buttons-state","wrap":false,"advance":true}}]},{"t":"click","s":{"targetId":"slider-non-circular-button-prev"},"b":[{"t":"states","s":{"states":[[["#slider-non-circular-button-prev",{"t":"properties","s":{"change":{"disabled":"disabled"}}}],["#slider-non-circular li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#slider-non-circular li.first",{"t":"classes","s":{"action":"add","change":["active"]}}]],[["#slider-non-circular-button-prev, #slider-non-circular-button-next",{"t":"properties","s":{"change":{"disabled":null}}}],["#slider-non-circular li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#slider-non-circular li.second",{"t":"classes","s":{"action":"add","change":["active"]}}]],[["#slider-non-circular-button-next",{"t":"properties","s":{"change":{"disabled":"disabled"}}}],["#slider-non-circular li",{"t":"classes","s":{"action":"remove","change":["active"]}}],["#slider-non-circular li.third",{"t":"classes","s":{"action":"add","change":["active"]}}]]],"stateId":"slider-non-circular","wrap":false,"advance":false,"initial":0}}]},{"t":"click","s":{"targetId":"slider-non-circular-button-next"},"b":[{"t":"states","s":{"stateId":"slider-non-circular","wrap":false,"advance":true}}]},{"t":"click","s":{"targetId":"color-rotate-button"},"b":[{"t":"states","s":{"states":[[["#silly-state-button-demo li",{"t":"classes","s":{"action":"remove","change":["red","blue","green"]}}],["#silly-state-button-demo li.stripe-one",{"t":"classes","s":{"action":"add","change":["red"]}}],["#silly-state-button-demo li.stripe-two",{"t":"classes","s":{"action":"add","change":["blue"]}}],["#silly-state-button-demo li.stripe-three",{"t":"classes","s":{"action":"add","change":["green"]}}]],[["#silly-state-button-demo li",{"t":"classes","s":{"action":"remove","change":["red","blue","green"]}}],["#silly-state-button-demo li.stripe-one",{"t":"classes","s":{"action":"add","change":["green"]}}],["#silly-state-button-demo li.stripe-two",{"t":"classes","s":{"action":"add","change":["red"]}}],["#silly-state-button-demo li.stripe-three",{"t":"classes","s":{"action":"add","change":["blue"]}}]],[["#silly-state-button-demo li",{"t":"classes","s":{"action":"remove","change":["red","blue","green"]}}],["#silly-state-button-demo li.stripe-one",{"t":"classes","s":{"action":"add","change":["blue"]}}],["#silly-state-button-demo li.stripe-two",{"t":"classes","s":{"action":"add","change":["green"]}}],["#silly-state-button-demo li.stripe-three",{"t":"classes","s":{"action":"add","change":["red"]}}]]],"stateId":"color-rotate-state","wrap":true,"advance":true}}]},{"t":"mouseover","s":{"targetId":"dropdown-state-example"},"b":[{"t":"states","s":{"states":[[[".dropdown-menu-demo",{"t":"classes","s":{"action":"remove","change":["hidden"]}}]],[[".dropdown-menu-demo",{"t":"classes","s":{"action":"add","change":["hidden"]}}]]],"stateId":"dropdown-menu-states","wrap":false,"advance":true,"index":0}}]},{"t":"mouseout","s":{"targetId":"dropdown-state-example"},"b":[{"t":"states","s":{"stateId":"dropdown-menu-states","wrap":false,"advance":true,"index":1}}]},{"t":"mouseenter","s":{"targetId":"dropdown-delta-subtree-example"},"b":[{"t":"states","s":{"states":[[[".dropdown-delta-subtree-demo",{"t":"update-subtree","s":{"action":"append","change":"<li class=\"first\">\nfirst added child\n</li>\n<li class=\"second\">\nsecond added child\n</li>"}}]],[[".dropdown-delta-subtree-demo .second",{"t":"remove-subtree","s":{"inclusive":true}}]]],"stateId":"dropdown-delta-subtree-states","wrap":false,"advance":true,"index":0}}]},{"t":"mouseleave","s":{"targetId":"dropdown-delta-subtree-example"},"b":[{"t":"states","s":{"stateId":"dropdown-delta-subtree-states","wrap":false,"advance":true,"index":1}}]},{"t":"click","s":{"targetId":"cdf-38e09a1b-9016-4716-8ac9-bca8dd1b0a0b"},"b":[{"t":"update","s":{"url":"/double","method":"POST","timeout":10,"values":[[".math-updates-input","value"]],"targets":[".math-updates-result"],"loading":[[".math-updates-button",{"t":"properties","s":{"change":{"disabled":"disabled"}}}],[".math-updates-result",{"t":"properties","s":{"change":{"value":"loading…"}}}]],"complete":[[".math-updates-button",{"t":"properties","s":{"change":{"disabled":null}}}]]}}]}];
+</script>
+</body>
+</html>

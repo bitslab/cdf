@@ -1,0 +1,7 @@
+- t: update-subtree
+  s:
+    action: append
+    change:
+      - t: p
+        s: {class: [status, bg-success]}
+        c: [{text: successfully loaded a thing}]
