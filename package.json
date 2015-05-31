@@ -1,7 +1,7 @@
 {
   "name": "crispy-parser",
   "version": "0.2.0",
-  "description": "Demo-y CRISP -> HTML parser",
+  "description": "CDF Parser, Proxy and Client scripts",
   "dependencies": {
     "argparse": "^1.0.2",
     "clone": "^1.0.2",

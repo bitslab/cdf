@@ -14,6 +14,13 @@ intended to be run in [NodeJS](https://nodejs.org/).
 [Grunt](http://gruntjs.com/) is used to manage building everything.
 
 
+## Installation
+This software uses the standard [node package manager](https://www.npmjs.com/)
+system for installing and managing dependencies.  Assuming you have *node*
+and *npm* installed, getting everything installed is as simple as running
+`npm install` in the root of this repo.
+
+
 ## Structure
 The code and resources in this repo are organized as follows:
 
