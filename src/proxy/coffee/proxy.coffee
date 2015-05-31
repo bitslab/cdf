@@ -1,5 +1,6 @@
 "use strict"
 
+argparse = require "argparse"
 url = require "url"
 path = require "path"
 fs = require "fs"
@@ -9,10 +10,27 @@ prettyjson = require 'prettyjson'
 escape = require 'escape-html'
 cdfParser = require '../../parser/js/render'
 
+parser = new argparse.ArgumentParser
+  version: 0.2
+  addHelp: true
+  description: "HTTP proxy that passes on HTTP requests from the client
+                to the server, and then either coverts the server's CDF
+                response into HTML and javascript to be rendered in the
+                browser, or an HTML document describing why the server's
+                response was invalid."
 
-debug = true
+parser.addArgument ['-d', '--debug'],
+  help: "Whether to print out error / debug information to the console."
+  action: "storeTrue"
+
+parser.addArgument ['-p', '--port'],
+  help: "The port that the proxy should listen on.  Defaults to 5050."
+  defaultValue: 5050
+  type: 'int'
+
+args = do parser.parseArgs
+
 clientCodePath = path.join __dirname
-
 
 trustedInlineMimeTypes = [
   # Audio types for <audio>
@@ -38,7 +56,7 @@ cdfMimeTypes = [
 
 
 debugMessage = (msg) ->
-  if not debug
+  if not args.debug
     return
   console.log msg
 
@@ -204,4 +222,4 @@ proxyServer = http.createServer (originalRequest, proxyResponse) ->
       proxyResponse.end responseStr
 
 
-proxyServer.listen 5050
+proxyServer.listen args.port

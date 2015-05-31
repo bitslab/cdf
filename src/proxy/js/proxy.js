@@ -1,7 +1,9 @@
 (function() {
   "use strict";
-  var cdfMimeTypes, cdfParser, clientCodePath, debug, debugMessage, escape, fs, http, path, prettyjson, proxyServer, request, responseContentType, trustedInlineMimeTypes, url, wrappedMimeTypes,
+  var argparse, args, cdfMimeTypes, cdfParser, clientCodePath, debugMessage, escape, fs, http, parser, path, prettyjson, proxyServer, request, responseContentType, trustedInlineMimeTypes, url, wrappedMimeTypes,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  argparse = require("argparse");
 
   url = require("url");
 
@@ -19,7 +21,24 @@
 
   cdfParser = require('../../parser/js/render');
 
-  debug = true;
+  parser = new argparse.ArgumentParser({
+    version: 0.2,
+    addHelp: true,
+    description: "HTTP proxy that passes on HTTP requests from the client to the server, and then either coverts the server's CDF response into HTML and javascript to be rendered in the browser, or an HTML document describing why the server's response was invalid."
+  });
+
+  parser.addArgument(['-d', '--debug'], {
+    help: "Whether to print out error / debug information to the console.",
+    action: "storeTrue"
+  });
+
+  parser.addArgument(['-p', '--port'], {
+    help: "The port that the proxy should listen on.  Defaults to 5050.",
+    defaultValue: 5050,
+    type: 'int'
+  });
+
+  args = parser.parseArgs();
 
   clientCodePath = path.join(__dirname);
 
@@ -32,7 +51,7 @@
   cdfMimeTypes = ["text/cdf", "application/x-netcdf"];
 
   debugMessage = function(msg) {
-    if (!debug) {
+    if (!args.debug) {
       return;
     }
     return console.log(msg);
@@ -159,6 +178,6 @@
     });
   });
 
-  proxyServer.listen(5050);
+  proxyServer.listen(args.port);
 
 }).call(this);
