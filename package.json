@@ -1,6 +1,11 @@
 {
   "name": "crispy-parser",
+  "private": true,
   "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git@git.uicbits.net:bitslab/crispy-bits.git"
+  },
   "description": "CDF Parser, Proxy and Client scripts",
   "dependencies": {
     "argparse": "^1.0.2",
