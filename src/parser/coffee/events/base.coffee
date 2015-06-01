@@ -1,6 +1,6 @@
 "use strict"
 
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 elementConstants = require "../elements/constants"
 validators = require "../utilities/validation"
 renderUtils = require "../utilities/render"
@@ -13,12 +13,12 @@ eventChildNodes = (cdfNode) ->
 
 
 eventRender = (cdfNode, buildState) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   cdfType.clientScripts.forEach (script) -> buildState.addScriptFile script
 
   childBehaviors = cdfType.childNodes cdfNode
   behaviorSettings = childBehaviors.map (childNode) ->
-    childType = typeRegistery.getType childNode
+    childType = typeRegistry.getType childNode
     childType.behaviorSettings childNode, buildState
 
   buildState.addEvent
@@ -32,7 +32,7 @@ eventRender = (cdfNode, buildState) ->
 # ================================ #
 
 addParentConnectionToBehaviors = (cdfNode, buildState) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   for bInst in cdfType.childNodes cdfNode
     bInst._parent = cdfNode
 

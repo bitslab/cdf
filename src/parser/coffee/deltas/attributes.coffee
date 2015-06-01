@@ -51,12 +51,12 @@ classes = ->
 # and all set properties must be strings (no more complex data types.)
 #
 # {
-#   t: "properties",
-#   s: {
+#   "t": "properties",
+#   "s": {
 #     change: {
-#       disabled": null,
-#       readonly": null,
-#       value": "edit me!
+#       "disabled": null,
+#       "readonly": null,
+#       "value": "edit me!
 #     }
 #   }
 # }

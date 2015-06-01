@@ -1,8 +1,8 @@
 (function() {
   "use strict";
-  var baseType, clone, deltaBase, deltaSettings, typeRegistery;
+  var baseType, clone, deltaBase, deltaSettings, typeRegistry;
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   baseType = require("../base");
 
@@ -10,7 +10,7 @@
 
   deltaSettings = function(cdfNode, buildState) {
     var cdfType, settings;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     cdfType.clientScripts.forEach(function(script) {
       return buildState.addScriptFile(script);
     });

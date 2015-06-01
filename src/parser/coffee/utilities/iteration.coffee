@@ -1,7 +1,7 @@
 "use strict"
 
 
-typeRegistery = require "./type-registery"
+typeRegistry = require "./type-registry"
 errors = require "./errors"
 
 
@@ -128,7 +128,7 @@ checkSubtreeUntilError = (cdfNode, testFunc) ->
   if not isCurrentNodeValid
     return [false, currentError]
 
-  cdfType = typeRegistery.getTypeFromNode cdfNode
+  cdfType = typeRegistry.getTypeFromNode cdfNode
   children = cdfType.childNodes cdfNode
 
   checkFunc = (childNode) ->

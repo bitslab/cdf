@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  var baseBehavior, errors, modifyTimerBehavior, modifyTimersSettings, typeRegistery, validation;
+  var baseBehavior, errors, modifyTimerBehavior, modifyTimersSettings, typeRegistry, validation;
 
   errors = require("../utilities/errors");
 
@@ -8,11 +8,11 @@
 
   baseBehavior = require("./base");
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   modifyTimersSettings = function(cdfNode, buildState) {
     var behaviorSettings, cdfType;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     cdfType.clientScripts.forEach(function(script) {
       return buildState.addScriptFile(script);
     });

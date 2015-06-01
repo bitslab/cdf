@@ -1,10 +1,10 @@
 (function() {
   "use strict";
-  var baseValidation, iter, typeRegistery, validateCssSelectorDeltaPair, validateCssSelectorDeltaPairs;
+  var baseValidation, iter, typeRegistry, validateCssSelectorDeltaPair, validateCssSelectorDeltaPairs;
 
   baseValidation = require("../utilities/validation");
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   iter = require("../utilities/iteration");
 

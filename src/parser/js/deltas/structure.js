@@ -1,12 +1,12 @@
 (function() {
   "use strict";
-  var baseDelta, buildTools, errorHanding, iter, removeSubtree, removeSubtreeDeltaSettings, typeRegistery, updateSubtree, updateTreeDeltaChildNodes, updateTreeDeltaSettings, validateAChangeNode, validateChangeNodes, _renderHtmlForChildNodes;
+  var baseDelta, buildTools, errorHanding, iter, removeSubtree, removeSubtreeDeltaSettings, typeRegistry, updateSubtree, updateTreeDeltaChildNodes, updateTreeDeltaSettings, validateAChangeNode, validateChangeNodes, _renderHtmlForChildNodes;
 
   baseDelta = require("../base");
 
   buildTools = require("../utilities/build-tools");
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   iter = require("../utilities/iteration");
 
@@ -14,7 +14,7 @@
 
   removeSubtreeDeltaSettings = function(cdfNode, buildState) {
     var cdfType, settings;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     cdfType.clientScripts.forEach(function(script) {
       return buildState.addScriptFile(script);
     });
@@ -41,14 +41,14 @@
   _renderHtmlForChildNodes = function(cdfNode) {
     var cdfType, subTreebuildState;
     subTreebuildState = buildTools.makeBuildState();
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     cdfType.render(cdfNode, subTreebuildState);
     return subTreebuildState.html();
   };
 
   updateTreeDeltaSettings = function(cdfNode, buildState) {
     var buildStateHtml, cdfType, children, settings;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     cdfType.clientScripts.forEach(function(script) {
       return buildState.addScriptFile(script);
     });
@@ -69,9 +69,9 @@
 
   validateAChangeNode = function(cdfNode) {
     var children, error, nodeType;
-    nodeType = typeRegistery.getType(cdfNode);
+    nodeType = typeRegistry.getType(cdfNode);
     if (!nodeType) {
-      error = "Found declaired type of '" + nodeTypeName + "' for subtree in update-tree delta, which does not match a known element type.";
+      error = "Found declared type of '" + nodeTypeName + "' for subtree in update-tree delta, which does not match a known element type.";
       return generateErrorWithTrace(error, cdfNode);
     }
     if (!nodeType.mayAppearInSubtrees) {

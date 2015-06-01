@@ -37,7 +37,7 @@ generatePathFromRoot = (cdfNode) ->
     nodes.push currentNode
     currentNode = currentNode._parent
 
-  # Then pad out each node of the tree with one preceeding tab for each
+  # Then pad out each node of the tree with one preceding tab for each
   # level deep they have in the tree.
   do nodes.reverse
   currentDepth = 0
@@ -65,11 +65,11 @@ generatePathFromRoot = (cdfNode) ->
 #   A cdf element representing a node in the CDF tree
 #
 # @return array
-#   Returns an array with lenght two.  The first value is always false (to
-#   make the result returned from this function distingishable from a succes
+#   Returns an array with length two.  The first value is always false (to
+#   make the result returned from this function distinguishable from a success
 #   condition).  The second value is a string describing the error.  This will
 #   first be the provided error message, followed by a trace of where the
-#   error occured in the CDF tree.
+#   error occurred in the CDF tree.
 generateErrorWithTrace = (error, cdfNode) ->
   treeTraceString = generatePathFromRoot cdfNode
   errorString = "#{ error }

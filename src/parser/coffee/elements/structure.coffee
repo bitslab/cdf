@@ -1,7 +1,7 @@
 "use strict"
 
 
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 baseElement = require "./base"
 consts = require "./constants"
 elementUtils = require "../utilities/elements"
@@ -19,10 +19,10 @@ html = ->
     buildState.addHtml "<!DOCTYPE html>"
     buildState.addHtml baseElement.renderStartTag cdfNode
 
-    cdfType = typeRegistery.getType cdfNode
+    cdfType = typeRegistry.getType cdfNode
 
     for childNode in cdfType.childNodes cdfNode
-      childType = typeRegistery.getType childNode
+      childType = typeRegistry.getType childNode
       childType.render childNode, buildState
 
     buildState.addHtml baseElement.renderEndTag cdfNode
@@ -66,11 +66,11 @@ body = ->
   # We need to include the script tags needed for the current page before
   # we can finish the body element.
   anElm.render = (cdfNode, buildState) ->
-    cdfType = typeRegistery.getType cdfNode
+    cdfType = typeRegistry.getType cdfNode
     buildState.addHtml baseElement.renderStartTag cdfNode
 
     for childNode in cdfType.childNodes cdfNode
-      childType = typeRegistery.getType childNode
+      childType = typeRegistry.getType childNode
       childType.render childNode, buildState
 
     scriptFiles = do buildState.scriptFiles

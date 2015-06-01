@@ -1,8 +1,8 @@
 (function() {
   "use strict";
-  var addParentConnectionToBehaviors, baseDefinition, baseEvent, clone, elementConstants, eventChildNodes, eventRender, renderUtils, typeRegistery, validateHasBehaviors, validators;
+  var addParentConnectionToBehaviors, baseDefinition, baseEvent, clone, elementConstants, eventChildNodes, eventRender, renderUtils, typeRegistry, validateHasBehaviors, validators;
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   elementConstants = require("../elements/constants");
 
@@ -20,14 +20,14 @@
 
   eventRender = function(cdfNode, buildState) {
     var behaviorSettings, cdfType, childBehaviors;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     cdfType.clientScripts.forEach(function(script) {
       return buildState.addScriptFile(script);
     });
     childBehaviors = cdfType.childNodes(cdfNode);
     behaviorSettings = childBehaviors.map(function(childNode) {
       var childType;
-      childType = typeRegistery.getType(childNode);
+      childType = typeRegistry.getType(childNode);
       return childType.behaviorSettings(childNode, buildState);
     });
     return buildState.addEvent({
@@ -39,7 +39,7 @@
 
   addParentConnectionToBehaviors = function(cdfNode, buildState) {
     var bInst, cdfType, _i, _len, _ref, _results;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     _ref = cdfType.childNodes(cdfNode);
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {

@@ -1,15 +1,15 @@
 (function() {
   "use strict";
-  var errors, makeBuildState, preprocessNode, typeRegistery;
+  var errors, makeBuildState, preprocessNode, typeRegistry;
 
-  typeRegistery = require("./type-registery");
+  typeRegistry = require("./type-registry");
 
   errors = require("./errors");
 
   preprocessNode = function(cdfNode, buildState) {
     var cdfType, children, error, func, preProcessFuncs, _i, _len;
     try {
-      cdfType = typeRegistery.getType(cdfNode);
+      cdfType = typeRegistry.getType(cdfNode);
     } catch (_error) {
       error = _error;
       return errors.generateErrorWithTrace(error, cdfNode);

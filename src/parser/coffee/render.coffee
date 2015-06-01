@@ -1,7 +1,7 @@
 "use strict"
 
 buildTools = require "./utilities/build-tools"
-typeRegistery = require "./utilities/type-registery"
+typeRegistry = require "./utilities/type-registry"
 deltasValidation = require "./deltas/validation"
 elementsUtils = require "./utilities/elements"
 validation = require "./utilities/validation"
@@ -37,9 +37,9 @@ renderDocument = (cdfDoc) ->
   if not isValid
     return [false, error]
 
-  # We don't need to check that this look up succeds, since it was already
+  # We don't need to check that this look up succeeds, since it was already
   # checked and confirmed successful in the validate call
-  htmlType = typeRegistery.getType cdfDoc
+  htmlType = typeRegistry.getType cdfDoc
   htmlType.render cdfDoc, buildState
 
   return [true, do buildState.html]
@@ -61,7 +61,7 @@ renderUpdate = (deltaNodes) ->
     return [false, error]
 
   renderedSettings = deltaNodes.map (childNode) ->
-    deltaType = typeRegistery.getType childNode
+    deltaType = typeRegistry.getType childNode
     deltaType.deltaSettings childNode, buildState
 
   return [true, JSON.stringify renderedSettings]

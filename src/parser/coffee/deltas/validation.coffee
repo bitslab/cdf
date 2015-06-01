@@ -4,7 +4,7 @@
 # type of delta.
 
 baseValidation = require "../utilities/validation"
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 iter = require "../utilities/iteration"
 
 
@@ -68,7 +68,7 @@ validateCssSelectorDeltaPair = (cssSelectorDeltaPair) ->
 #   list are valid.
 #
 #   If the first value is true (ie the values are valid), then the second
-#   value is null.  Otherwise, the second value is a string describing the
+#   value is null.  Otherwise, the second value is a string describing
 #   the first error encountered.
 validateCssSelectorDeltaPairs = (cssSelectorDeltaPairs) ->
   iter.reduce cssSelectorDeltaPairs, validateCssSelectorDeltaPair

@@ -1,10 +1,10 @@
 (function() {
   "use strict";
-  var buildTools, deltasValidation, elementsUtils, iter, renderDocument, renderUpdate, typeRegistery, validation, _preprocessDeltaNode;
+  var buildTools, deltasValidation, elementsUtils, iter, renderDocument, renderUpdate, typeRegistry, validation, _preprocessDeltaNode;
 
   buildTools = require("./utilities/build-tools");
 
-  typeRegistery = require("./utilities/type-registery");
+  typeRegistry = require("./utilities/type-registry");
 
   deltasValidation = require("./deltas/validation");
 
@@ -32,7 +32,7 @@
     if (!isValid) {
       return [false, error];
     }
-    htmlType = typeRegistery.getType(cdfDoc);
+    htmlType = typeRegistry.getType(cdfDoc);
     htmlType.render(cdfDoc, buildState);
     return [true, buildState.html()];
   };
@@ -53,7 +53,7 @@
     }
     renderedSettings = deltaNodes.map(function(childNode) {
       var deltaType;
-      deltaType = typeRegistery.getType(childNode);
+      deltaType = typeRegistry.getType(childNode);
       return deltaType.deltaSettings(childNode, buildState);
     });
     return [true, JSON.stringify(renderedSettings)];

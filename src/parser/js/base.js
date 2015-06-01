@@ -6,7 +6,7 @@
 
   iter = require("./utilities/iteration");
 
-  typeRegistery = require("./utilities/type-registery");
+  typeRegistery = require("./utilities/type-registry");
 
   validation = require("./utilities/validation");
 

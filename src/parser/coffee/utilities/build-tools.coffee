@@ -3,7 +3,7 @@
 # This module includes functions that are helpful for processing trees of
 # cdf nodes into HTML+JS documents.
 
-typeRegistery = require "./type-registery"
+typeRegistry = require "./type-registry"
 errors = require "./errors"
 
 
@@ -13,7 +13,7 @@ errors = require "./errors"
 # @param object cdfNode
 #   A reference to the CDF event is an instance of the given type
 # @param object buildState
-#   A document builer, defined in document.coffee, that stores the HTML, event
+#   A document builder, defined in document.coffee, that stores the HTML, event
 #   definitions, and configuration settings needed to build the document.  It
 #   captures the state of the CDF tree being validated as this node is being
 #   considered.
@@ -24,7 +24,7 @@ errors = require "./errors"
 preprocessNode = (cdfNode, buildState) ->
 
   try
-    cdfType = typeRegistery.getType cdfNode
+    cdfType = typeRegistry.getType cdfNode
   catch error
     return errors.generateErrorWithTrace error, cdfNode
 
@@ -60,7 +60,7 @@ makeBuildState = ->
 
 
   # Adds a new string to the build state.  Each HTML string is just
-  # concatinated onto the existing HTML strings seen so far.
+  # concatenated onto the existing HTML strings seen so far.
   #
   # @param string newHtml
   #   A new string to add to the HTML document being built.

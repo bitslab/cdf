@@ -1,10 +1,10 @@
 (function() {
   "use strict";
-  var baseBehavior, deltaValidators, errors, generalValidators, iter, safeValueNamePattern, typeRegistery, updateBehavior, updateBehaviorChildNodes, updateBehaviorSettings, validateCompleteDeltas, validateCssSelectorValueNamePair, validateErrorDeltas, validateLoadingDeltas, validateValuesSetting, _validateDeltaList;
+  var baseBehavior, deltaValidators, errors, generalValidators, iter, safeValueNamePattern, typeRegistry, updateBehavior, updateBehaviorChildNodes, updateBehaviorSettings, validateCompleteDeltas, validateCssSelectorValueNamePair, validateErrorDeltas, validateLoadingDeltas, validateValuesSetting, _validateDeltaList;
 
   baseBehavior = require("./base");
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   generalValidators = require("../utilities/validation");
 
@@ -85,7 +85,7 @@
 
   updateBehaviorSettings = function(cdfNode, buildState) {
     var cdfType, cssSelector, deltaNode, deltaSettings, deltaType, deltas, instSettings, settingKey, settings, _i, _len, _ref;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     cdfType.clientScripts.forEach(function(script) {
       return buildState.addScriptFile(script);
     });
@@ -115,7 +115,7 @@
         _results = [];
         for (_j = 0, _len1 = deltas.length; _j < _len1; _j++) {
           _ref1 = deltas[_j], cssSelector = _ref1[0], deltaNode = _ref1[1];
-          deltaType = typeRegistery.getType(deltaNode);
+          deltaType = typeRegistry.getType(deltaNode);
           deltaSettings = deltaType.deltaSettings(deltaNode, buildState);
           _results.push([cssSelector, deltaSettings]);
         }

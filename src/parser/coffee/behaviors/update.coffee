@@ -8,7 +8,7 @@
 #   - url (string, local url):
 #     A relative url, referring to a resource on the same page as served the
 #     CDF document (ex: /endpoint or /endpoint.php are valid, but
-#     http://example.org/endpoing is invalid)
+#     http://example.org/endpoint is invalid)
 #
 # Optional settings:
 #   - method (string, one of "GET", "POST", defaults to "GET"):
@@ -45,7 +45,7 @@
 #     If provided, controls which values will be sent to the server with
 #     the request.  Each `name` must be a string matching the regex
 #     /^[\d\w -\[\]]+$/ (ie only digits, ASCII letters, underscores, hyphens,
-#     spaces, or square brackets).  Each coresponding css selector is used
+#     spaces, or square brackets).  Each corresponding css selector is used
 #     to query the document for values to send to the server.
 #
 #     If the CSS selector matches an input, select, or textarea input,
@@ -63,7 +63,7 @@
 #     The arguments (".first-input", "a_name") would send: a_name=["bart"]
 
 baseBehavior = require "./base"
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 generalValidators = require "../utilities/validation"
 deltaValidators = require "../deltas/validation"
 iter = require "../utilities/iteration"
@@ -195,7 +195,7 @@ updateBehaviorChildNodes = (cdfNode) ->
 
 
 updateBehaviorSettings = (cdfNode, buildState) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   cdfType.clientScripts.forEach (script) -> buildState.addScriptFile script
 
   instSettings = cdfNode.s
@@ -219,7 +219,7 @@ updateBehaviorSettings = (cdfNode, buildState) ->
       continue
 
     settings.s[settingKey] = for [cssSelector, deltaNode] in deltas
-      deltaType = typeRegistery.getType deltaNode
+      deltaType = typeRegistry.getType deltaNode
       deltaSettings = deltaType.deltaSettings deltaNode, buildState
       [cssSelector, deltaSettings]
 

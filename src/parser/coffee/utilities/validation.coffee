@@ -5,7 +5,7 @@ arrayTools = require "./array"
 iter = require "./iteration"
 errors = require "./errors"
 buildTools = require "./build-tools"
-typeRegistery = require "./type-registery"
+typeRegistry = require "./type-registry"
 url = require "url"
 
 
@@ -41,7 +41,7 @@ validateNode = (cdfNode, buildState) ->
                     cdf node: '#{ cdfNode }'."]
 
   try
-    cdfType = typeRegistery.getType cdfNode
+    cdfType = typeRegistry.getType cdfNode
   catch error
     return [false, error]
 
@@ -62,11 +62,11 @@ validateNode = (cdfNode, buildState) ->
   [true, null]
 
 
-# Sanity check the tree by making sure that the privilaged (underscored)
+# Sanity check the tree by making sure that the privileged (underscored)
 # properties we add into the object graph are not there before we start
 # processing the tree.  This is our guard against maliciously created documents
 # that might try to trick the parser by entering their own values for these
-# privilaged (unchecked) properties in the tree.
+# privileged (unchecked) properties in the tree.
 #
 # Basically, we just do a DFS of the tree and check for any underscored
 # properties.  Once we safely determine that they're not in the tree, we
@@ -89,7 +89,7 @@ validateNode = (cdfNode, buildState) ->
 checkTreeForDisallowedProperties = (cdfNode) ->
 
   # First check and see if any of the properties on this node start with
-  # an underscore.  Underscore properties are used by the processer
+  # an underscore.  Underscore properties are used by the parser
   # to internally tie parents and children together.  In order to ensure
   # that we are not processing a potentially malicious cdf document,
   # we check first to make sure that the author of the CDF document did
@@ -108,11 +108,11 @@ checkTreeForDisallowedProperties = (cdfNode) ->
   # check them in the same way.
   #
   # Since we don't yet know that we've validated the entire tree (this function
-  # may be getting called before any validation is occuring), we need to be
+  # may be getting called before any validation is occurring), we need to be
   # cautious and test for the possibility that there is an unknown / invalid
   # type in the tree.
   try
-    cdfType = typeRegistery.getType cdfNode
+    cdfType = typeRegistry.getType cdfNode
   catch error
     return errors.generateErrorWithTrace error, cdfNode
 
@@ -129,7 +129,7 @@ checkTreeForDisallowedProperties = (cdfNode) ->
 # to match no results if its looking for a typo-typed tag like diiv),
 # but at least one that cannot execute any kind of code.
 #
-# Not all css selectors are valid.  For convience, we only allow a subset of
+# Not all css selectors are valid.  For convenience, we only allow a subset of
 # valid CSS selectors:
 #  * by tag, class or ID : div|.class|#id
 #  * by child-status: div span
@@ -153,7 +153,7 @@ isSafeCSSSelector = (selector) ->
   if typeof selector isnt "string"
     return [false, "Given CSS selector is not of type 'string'"]
   if not selector.match validCSSSelectorPattern
-    return [false, "CSS selector '#{ selector }' contains illegal charaters"]
+    return [false, "CSS selector '#{ selector }' contains illegal characters"]
   return [true, null]
 
 
@@ -161,7 +161,7 @@ isSafeCSSSelector = (selector) ->
 # and valid to use as the value of an HTML id="<something>" attribute.
 #
 # @param aString string
-#   A string to chack as a valid HTML id attribute
+#   A string to check as a valid HTML id attribute
 #
 # @return array
 #   An array of length two.  The first value will be a bool, describing
@@ -177,7 +177,7 @@ isValidHtmlId = (aString) ->
 
 
 # Checks to see if the given string is a valid HTML class, and is safe
-# and valid to use as the value of an HTML calass="<something>" attribute.
+# and valid to use as the value of an HTML class="<something>" attribute.
 #
 # @param aString string
 #   A string to check as a valid HTML class value
@@ -213,12 +213,12 @@ isValidHtmlClass = (aString) ->
 #
 # Additionally, values can be arrays of any of the above data types.  For
 # example 'array:int' or 'array:html id' specifies that the array can only
-# contain integer values, or valid HTML IDs, respectivly.
+# contain integer values, or valid HTML IDs, respectively.
 #  * "array:<type>":       Should be a javascript array of the above types
 #
 # This function also checks that given settings object does not include any
 # settings for which types are undefined (ie the set of keys for the settings
-# object is a subset of the the keys from the settingsTypes object).
+# object is a subset of the keys from the settingsTypes object).
 #
 # @param settings object
 #   A javascript object, with keys being the behavior's settings, and the values
@@ -322,7 +322,7 @@ _isValidSetting = (settingPair, settingsDefs, testType) ->
 #
 # Additionally, values can be arrays of any of the above data types.  For
 # example 'array:int' or 'array:html id' specifies that the array can only
-# contain integer values, or valid HTML IDs, respectivly.
+# contain integer values, or valid HTML IDs, respectively.
 #  * "array:<type>":       Should be a javascript array of the above types
 #
 # Finally, values can be arrays of valid types.  So if a value can be one
@@ -330,7 +330,7 @@ _isValidSetting = (settingPair, settingsDefs, testType) ->
 # of which value must be a member.
 #
 # @param value mixed
-#   Any value, whos type should be tested
+#   Any value which type's should be tested
 # @param type string|array
 #   One of the above data type names (ex "int" or "array:int")
 #
@@ -341,7 +341,7 @@ _isValidSetting = (settingPair, settingsDefs, testType) ->
 isExpectedType = (value, type) ->
 
   error = switch
-    # Finally, check the case where we have an explict list of possible values
+    # Finally, check the case where we have an explicit list of possible values
     # a setting can take on (specified by an array of values).
     when Array.isArray type
       if value not in type
@@ -421,7 +421,7 @@ isExpectedType = (value, type) ->
         childType = type.substring 6
 
         subError = null
-        # Now in order to do this recursivly, we just create a new object
+        # Now in order to do this recursively, we just create a new object
         for subValue in value
           [isChildValid, childErr] = isExpectedType subValue, childType
           if not isChildValid
@@ -429,7 +429,7 @@ isExpectedType = (value, type) ->
             break
 
         # Return the error from the sub array as the general array of the
-        # switch statement, ie the result of validing the entire value
+        # switch statement, ie the result of validating the entire value.
         subError
 
     else

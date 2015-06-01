@@ -2,7 +2,7 @@
 
 # States are a way of describing changes in the CDF document that are
 # self contained in the document, and don't require any further communication
-# with the server.  Examples of common web patterns that are expressable as
+# with the server.  Examples of common web patterns that are expressible as
 # "states" are tabs, image carousels, etc.
 #
 # States are series of delta elements.  States can be advanced, retreated, etc.
@@ -13,7 +13,7 @@
 
 errors = require "../utilities/errors"
 baseBehavior = require "./base"
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 validation = require "../utilities/validation"
 deltaValidation = require "../deltas/validation"
 iter = require "../utilities/iteration"
@@ -33,24 +33,24 @@ validateStateId  = (cdfNode, buildState) ->
 
   stateId = cdfNode.s.stateId
   stateDefinition = cdfNode.s.states
-  stateIdRegistery = buildState.config "stateIds"
+  stateIdRegistry = buildState.config "stateIds"
 
   # In order to be valid, one of the following must be true.  Either this
   # state instance has a state ID that we have not see before, and contains
-  # a state definition, OR it has no state definition and but has a refernece
+  # a state definition, OR it has no state definition and but has a reference
   # to a state definition seen previously.  If neither of these are true,
-  # then there is an error (ie its a reference to a state that isn't declaired
-  # prevously).
+  # then there is an error (ie its a reference to a state that isn't declared
+  # previously).
 
-  isPrevouslySeenState = stateIdRegistery[stateId]
+  isPrevouslySeenState = stateIdRegistry[stateId]
 
-  # First, check the first case abve (that there is a unique state id and
+  # First, check the first case above (that there is a unique state id and
   # no state definition).
   if stateDefinition and not isPrevouslySeenState
 
     # If this is the first time we've seen this state is, then include it
-    # in the registery, so that other state definitions can refer to it.
-    stateIdRegistery[stateId] = true
+    # in the registry, so that other state definitions can refer to it.
+    stateIdRegistry[stateId] = true
     return [true, null]
 
   # Next, check the second case, that there is not a state defined here,
@@ -61,7 +61,7 @@ validateStateId  = (cdfNode, buildState) ->
 
   # Otherwise, if we haven't met either of the above cases, then there is
   # an error.  We just need to figure out what that error is so that
-  # we can produce a useful error.  We can do these tests exaustivly, since
+  # we can produce a useful error.  We can do these tests exhaustively, since
   # there are only two possible remaining cases...
   #
   # One, that there is a state definition AND a reference to a previously
@@ -113,7 +113,7 @@ validateStates = (cdfNode, buildState) ->
   return iter.reduceWithError definedStates, validationFunc, cdfNode
 
 
-# Check and make sure that if there is an `inital` setting provided
+# Check and make sure that if there is an `initial` setting provided
 # with this instance, that there are also states defined here (ie that
 # we're not in a reference to a set of states defined elsewhere).
 validateInitialValueWithStates = (cdfNode, buildState) ->
@@ -147,7 +147,7 @@ validateInitialRange = (cdfNode, buildState) ->
   # referencing a state behavior defined elsewhere).
   numStates = cdfNode.s.states.length
   if initialSetting < 0 or initialSetting >= numStates
-    error = "Invaid 'initial' setting.  Must be in the range of [0,
+    error = "Invalid 'initial' setting.  Must be in the range of [0,
              #{numStates}]"
     return errors.generateErrorWithTrace error, cdfNode
 
@@ -172,7 +172,7 @@ validateInitialRange = (cdfNode, buildState) ->
 #     trigger this event again will cause the element to take on the first
 #     state change in the array.
 #  * advance (bool, default: true):
-#     Controls whether this behavior advances (true) or retreates (false)
+#     Controls whether this behavior advances (true) or retreats (false)
 #     the given state.
 #  * index (int, default: null)
 #     If provided, clicking this button will advance the state to the given
@@ -186,13 +186,13 @@ validateInitialRange = (cdfNode, buildState) ->
 #     for settings, and it must refer to a stateId already seen in the document.
 #  * common (array)
 #     An array of [css selector, delta] pairs.  If provided, these states will
-#     be applied before every state is applied.  These are, effectivly,
-#     appened to the beginning of every state
+#     be applied before every state is applied.  These are, effectively,
+#     append to the beginning of every state
 #  * initial (int, optional)
 #     If provided, this state will automatically be applied to the document
 #     when the state is registered.  It only has an effect when its set in the
 #     same behavior instance as the state definition (ie it cannot be set in
-#     behavior instances that are refering to states defined elsewhere.)
+#     behavior instances that are referring to states defined elsewhere.)
 #
 # Below is a simple example of how tabs could be implemented using two states.
 #
@@ -292,7 +292,7 @@ statesBehavior = ->
   # with whatever the delta instance wants to define itself as.
   base.behaviorSettings = (cdfNode, buildState) ->
 
-    cdfType = typeRegistery.getType cdfNode
+    cdfType = typeRegistry.getType cdfNode
     cdfType.clientScripts.forEach (script) -> buildState.addScriptFile script
 
     settings = {}
@@ -301,14 +301,14 @@ statesBehavior = ->
 
     if cdfNode.s.common
       settings.s.common = for [cssSelector, deltaInst] in cdfNode.s.common
-        deltaType = typeRegistery.getType deltaInst
+        deltaType = typeRegistry.getType deltaInst
         deltaSettings = deltaType.deltaSettings deltaInst, buildState
         [cssSelector, deltaSettings]
 
     if cdfNode.s.states
       settings.s.states = for state in cdfNode.s.states
         for [cssSelector, deltaInst] in state
-          deltaType = typeRegistery.getType deltaInst
+          deltaType = typeRegistry.getType deltaInst
           deltaSettings = deltaType.deltaSettings deltaInst, buildState
           [cssSelector, deltaSettings]
 

@@ -1,8 +1,8 @@
 (function() {
   "use strict";
-  var baseElement, body, consts, elementUtils, head, html, link, meta, title, typeRegistery;
+  var baseElement, body, consts, elementUtils, head, html, link, meta, title, typeRegistry;
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   baseElement = require("./base");
 
@@ -22,11 +22,11 @@
       var cdfType, childNode, childType, _i, _len, _ref;
       buildState.addHtml("<!DOCTYPE html>");
       buildState.addHtml(baseElement.renderStartTag(cdfNode));
-      cdfType = typeRegistery.getType(cdfNode);
+      cdfType = typeRegistry.getType(cdfNode);
       _ref = cdfType.childNodes(cdfNode);
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         childNode = _ref[_i];
-        childType = typeRegistery.getType(childNode);
+        childType = typeRegistry.getType(childNode);
         childType.render(childNode, buildState);
       }
       return buildState.addHtml(baseElement.renderEndTag(cdfNode));
@@ -68,12 +68,12 @@
     anElm.validChildElementTypes = consts.flowTypes;
     anElm.render = function(cdfNode, buildState) {
       var cdfType, childNode, childType, events, script, scriptFiles, _i, _j, _len, _len1, _ref;
-      cdfType = typeRegistery.getType(cdfNode);
+      cdfType = typeRegistry.getType(cdfNode);
       buildState.addHtml(baseElement.renderStartTag(cdfNode));
       _ref = cdfType.childNodes(cdfNode);
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         childNode = _ref[_i];
-        childType = typeRegistery.getType(childNode);
+        childType = typeRegistry.getType(childNode);
         childType.render(childNode, buildState);
       }
       scriptFiles = buildState.scriptFiles();

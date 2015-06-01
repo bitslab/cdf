@@ -2,17 +2,17 @@
 
 # Common definitions for the four types of elements in CDF
 #   - elements (the structure of the tree)
-#   - events (triggers for interactivy)
+#   - events (triggers for interactivity)
 #   - behaviors (definitions of that interactivity)
 #   - deltas (definitions for changes in attributes in an existing tree)
 #
 # This is mostly an interface, since it defines very little behavior, and
-# is mainly ment to establish a sane, standard API for the entire parsing
+# is mainly meant to establish a sane, standard API for the entire parsing
 # system.
 
 arrayTools = require "./utilities/array"
 iter = require "./utilities/iteration"
-typeRegistery = require "./utilities/type-registery"
+typeRegistery = require "./utilities/type-registry"
 validation = require "./utilities/validation"
 errors = require "./utilities/errors"
 clone = require "clone"
@@ -53,7 +53,7 @@ applyDefaultSettings = (cdfNode, buildState) ->
     return
 
   # If this object has default settings, but the instance has no settings,
-  # then we're in the simple case of just assinging the default settings
+  # then we're in the simple case of just assigning the default settings
   # to the instance
   if not cdfNode.s
     cdfNode.s = clone defaultSettings
@@ -86,7 +86,7 @@ applyDefaultSettings = (cdfNode, buildState) ->
 #   property exists on the node.
 #
 #   If the property does exist on the node, the second value is null.
-#   If the proeprty does not exist, the second value is an string
+#   If the property does not exist, the second value is an string
 #   describing the property that is missing.
 _validatePropertyExistsOnNode = (propertyName, cdfNode) ->
   if cdfNode[propertyName] is undefined
@@ -133,7 +133,7 @@ validateProperties = (cdfNode, buildState) ->
 #   property exists on the node.
 #
 #   If the property does exist on the node, the second value is null.
-#   If the proeprty does not exist, the second value is an string
+#   If the property does not exist, the second value is an string
 #   describing the property that is missing.
 _validateSettingExistsOnNode = (settingName, cdfNode) ->
   if cdfNode.s[settingName] is undefined
@@ -176,12 +176,10 @@ validateSettings = (cdfNode, buildState) ->
 # In the common case, we don't worry about anything in the current node
 # and just render the children.
 #
-# @param object cdfType
-#   A type definition object, describing the type of the current element
 # @param object cdfNode
 #   A node in the CDF tree, that is an instance of the given type definition
-# @param object bulder
-#   A document builer, defined in document.coffee, that stores the HTML,
+# @param object buildState
+#   A document builder, defined in utilities/build-tools.coffee, that stores the HTML,
 #   event definitions, and configuration settings needed to build the
 #   document.
 commonRenderFunc = (cdfNode, buildState) ->
@@ -215,7 +213,7 @@ commonChildNodes = (cdfNode) ->
 
 base = ->
 
-  # A human readble name for this definition, used for generating error
+  # A human readable name for this definition, used for generating error
   # messages and performing definition look ups based on the type
   # an object declares in a CDF type.
   name: null
@@ -235,43 +233,42 @@ base = ->
   # is allowed to modify the element in place. (no other functions can
   # do so).
   #
-  # Each function in this array will be called with three arguments.
-  #   - cdfType (object):  A reference to the type definition
-  #   - cdfNode (object): A reference to the CDF element is an instance of
-  #                        the given type
-  #   - buildState (object):  A document builer, defined in document.coffee, that
-  #                        stores the HTML, event definitions, and
-  #                        configuration settings needed to build the
-  #                        document.
+  # Each function in this array will be called with two arguments.
+  #   - cdfNode (object):     A reference to the CDF element is an instance of
+  #                           the given type
+  #   - buildState (object):  A document builder, defined in utilities/build-tools.coffee,
+  #                           that stores the HTML, event definitions, and
+  #                           configuration settings needed to build the
+  #                           document.
   preprocessingFunctions: [applyDefaultSettings]
 
   # An array of functions that should be called to validate this element.
   # Other event definitions can specify additional validation behavior by
   # pushing functions onto this list, or overwrite it completely.
   #
-  # Each function in this array will be called with three arguments.
-  #   - cdfType (object):  A reference to the type definition
-  #   - cdfNode (object): A reference to the CDF element is an instance of
-  #                        the given type
-  #   - buildState (object):  A document builer, defined in document.coffee, that
-  #                        stores the HTML, event definitions, and
-  #                        configuration settings needed to build the
-  #                        document.
-  #
+  # Each function in this array will be called with two arguments.
+  #   - cdfNode (object):     A reference to the CDF element is an instance of
+  #                           the given type
+  #   - buildState (object):  A document builder, 
+  #                           defined in utilities/build-tools.coffee, that
+  #                           stores the HTML, event definitions, and
+  #                           configuration settings needed to build the
+  #                           document.
+ 
   # It should return an array with two elements in it, the first being whether
   # the validation was successful.  If "false", then the second item
   # should be a human readable error explanation.  Otherwise, should be null.
   validationFunctions: [validateProperties, validateSettings]
 
   # A complete list of allowed properties for each instance of this type
-  # in the CDF document.  This set of properites is validated in the same
+  # in the CDF document.  This set of properties is validated in the same
   # way as the settings object
   validProperties:
     t: "string"       # The name of the type being implemented
-    s: "object"       # Any configuration properites for this element
+    s: "object"       # Any configuration properties for this element
 
   # An array of properties that instances of this type must have.  This
-  # array must contain a subset of a the keys of the `validProperties`
+  # array must contain a subset of the keys of the `validProperties`
   # property for this type.
   requiredProperties: ["t"]
 

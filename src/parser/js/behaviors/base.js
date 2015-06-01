@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  var attachDeltasToBehavior, baseBehavior, baseType, errors, typeRegistery, validators;
+  var attachDeltasToBehavior, baseBehavior, baseType, errors, typeRegistry, validators;
 
   validators = require("../utilities/validation");
 
@@ -8,11 +8,11 @@
 
   baseType = require("../base");
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   attachDeltasToBehavior = function(cdfNode, buildState) {
     var cdfType, deltaInst, _i, _len, _ref, _results;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     _ref = cdfType.childNodes(cdfNode);
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {

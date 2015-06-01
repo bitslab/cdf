@@ -1,9 +1,9 @@
 (function() {
   "use strict";
-  var checkSubtreeUntilError, errors, firstErrorInResults, inverseReduce, reduce, reduceWithError, typeRegistery, _firstErrorInResultsReduceFunc,
+  var checkSubtreeUntilError, errors, firstErrorInResults, inverseReduce, reduce, reduceWithError, typeRegistry, _firstErrorInResultsReduceFunc,
     __slice = [].slice;
 
-  typeRegistery = require("./type-registery");
+  typeRegistry = require("./type-registry");
 
   errors = require("./errors");
 
@@ -50,7 +50,7 @@
     if (!isCurrentNodeValid) {
       return [false, currentError];
     }
-    cdfType = typeRegistery.getTypeFromNode(cdfNode);
+    cdfType = typeRegistry.getTypeFromNode(cdfNode);
     children = cdfType.childNodes(cdfNode);
     checkFunc = function(childNode) {
       return checkSubtreeUntilError(childNode, testFunc);

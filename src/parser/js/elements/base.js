@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  var addHtmlIdsWhereEvents, addParentConnectionToChildren, baseElement, cdfBase, consts, elementChildNodes, elementRender, errors, escape, iter, renderEndTag, renderSettingsAsAttributes, renderStartTag, renderUtils, typeRegistery, uuid, validateChildElms, validateUniqueIds, validators, _isValidChild,
+  var addHtmlIdsWhereEvents, addParentConnectionToChildren, baseElement, cdfBase, consts, elementChildNodes, elementRender, errors, escape, iter, renderEndTag, renderSettingsAsAttributes, renderStartTag, renderUtils, typeRegistry, uuid, validateChildElms, validateUniqueIds, validators, _isValidChild,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   consts = require("./constants");
@@ -11,7 +11,7 @@
 
   renderUtils = require("../utilities/render");
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   iter = require("../utilities/iteration");
 
@@ -23,7 +23,7 @@
 
   addParentConnectionToChildren = function(cdfNode, buildState) {
     var children, nodeType;
-    nodeType = typeRegistery.getType(cdfNode);
+    nodeType = typeRegistry.getType(cdfNode);
     children = nodeType.childNodes(cdfNode);
     return children.forEach(function(childNode) {
       return childNode._parent = cdfNode;
@@ -62,7 +62,7 @@
     if (cdfNode.c === void 0) {
       return [true, null];
     }
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     _ref = iter.reduce(cdfNode.c, _isValidChild, cdfType), isSuccess = _ref[0], error = _ref[1];
     if (!isSuccess) {
       return errors.generateErrorWithTrace(error, cdfNode);
@@ -73,7 +73,7 @@
   _isValidChild = function(childElm, parentType) {
     var childType, error, _ref;
     try {
-      childType = typeRegistery.getType(childElm);
+      childType = typeRegistry.getType(childElm);
     } catch (_error) {
       error = _error;
       return [false, error];
@@ -132,7 +132,7 @@
 
   renderStartTag = function(cdfNode) {
     var attrString, cdfType;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     attrString = renderSettingsAsAttributes(cdfNode);
     if (attrString) {
       attrString = " " + attrString;
@@ -142,7 +142,7 @@
 
   renderEndTag = function(cdfNode) {
     var cdfType;
-    cdfType = typeRegistery.getType(cdfNode);
+    cdfType = typeRegistry.getType(cdfNode);
     if (cdfType.isSelfClosing) {
       return "";
     } else {

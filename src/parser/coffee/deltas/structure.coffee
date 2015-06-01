@@ -6,13 +6,13 @@
 
 baseDelta = require "../base"
 buildTools = require "../utilities/build-tools"
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 iter = require "../utilities/iteration"
 errorHanding = require "../utilities/errors"
 
 
 removeSubtreeDeltaSettings = (cdfNode, buildState) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   cdfType.clientScripts.forEach (script) -> buildState.addScriptFile script
 
   settings =
@@ -66,13 +66,13 @@ removeSubtree = ->
 #   Returns the rendered HTML for the subtree of CDF nodes.
 _renderHtmlForChildNodes = (cdfNode) ->
   subTreebuildState = do buildTools.makeBuildState
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   cdfType.render cdfNode, subTreebuildState
   do subTreebuildState.html
 
 
 updateTreeDeltaSettings = (cdfNode, buildState) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   cdfType.clientScripts.forEach (script) -> buildState.addScriptFile script
 
   children = cdfType.childNodes cdfNode
@@ -103,9 +103,9 @@ validateAChangeNode = (cdfNode) ->
 
   # Check and make sure that the type we found corresponds to a valid
   # element type.
-  nodeType = typeRegistery.getType cdfNode
+  nodeType = typeRegistry.getType cdfNode
   if not nodeType
-    error = "Found declaired type of '#{nodeTypeName}' for subtree in
+    error = "Found declared type of '#{nodeTypeName}' for subtree in
              update-tree delta, which does not match a known element type."
     return generateErrorWithTrace error, cdfNode
 

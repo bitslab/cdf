@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  var areValidSettings, arrayTools, buildTools, checkTreeForDisallowedProperties, errors, htmlClassPattern, htmlIdPattern, isExpectedType, isSafeCSSSelector, isValidHtmlClass, isValidHtmlId, iter, typeRegistery, url, validCSSSelectorPattern, validateNode, _isValidSetting,
+  var areValidSettings, arrayTools, buildTools, checkTreeForDisallowedProperties, errors, htmlClassPattern, htmlIdPattern, isExpectedType, isSafeCSSSelector, isValidHtmlClass, isValidHtmlId, iter, typeRegistry, url, validCSSSelectorPattern, validateNode, _isValidSetting,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   arrayTools = require("./array");
@@ -11,7 +11,7 @@
 
   buildTools = require("./build-tools");
 
-  typeRegistery = require("./type-registery");
+  typeRegistry = require("./type-registry");
 
   url = require("url");
 
@@ -27,7 +27,7 @@
       return [false, "Was passed a non-object, which is trivially not a valid cdf node: '" + cdfNode + "'."];
     }
     try {
-      cdfType = typeRegistery.getType(cdfNode);
+      cdfType = typeRegistry.getType(cdfNode);
     } catch (_error) {
       error = _error;
       return [false, error];
@@ -56,7 +56,7 @@
       return errors.generateErrorWithTrace(error, cdfNode);
     }
     try {
-      cdfType = typeRegistery.getType(cdfNode);
+      cdfType = typeRegistry.getType(cdfNode);
     } catch (_error) {
       error = _error;
       return errors.generateErrorWithTrace(error, cdfNode);
@@ -74,7 +74,7 @@
       return [false, "Given CSS selector is not of type 'string'"];
     }
     if (!selector.match(validCSSSelectorPattern)) {
-      return [false, "CSS selector '" + selector + "' contains illegal charaters"];
+      return [false, "CSS selector '" + selector + "' contains illegal characters"];
     }
     return [true, null];
   };

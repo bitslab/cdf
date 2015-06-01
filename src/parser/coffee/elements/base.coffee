@@ -26,7 +26,7 @@ consts = require "./constants"
 validators = require "../utilities/validation"
 errors = require "../utilities/errors"
 renderUtils = require "../utilities/render"
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 iter = require "../utilities/iteration"
 cdfBase = require "../base"
 escape = require "escape-html"
@@ -42,7 +42,7 @@ uuid = require "node-uuid"
 # also used in some places for validation
 addParentConnectionToChildren = (cdfNode, buildState) ->
 
-  nodeType = typeRegistery.getType cdfNode
+  nodeType = typeRegistry.getType cdfNode
   children = nodeType.childNodes cdfNode
   children.forEach (childNode) ->
     childNode._parent = cdfNode
@@ -53,8 +53,8 @@ addParentConnectionToChildren = (cdfNode, buildState) ->
 #
 # @param object cdfNode
 #   A reference to the CDF element is an instance of the given type
-# @param object bulder
-#   A document builer, defined in document.coffee, that stores the HTML,
+# @param object builder
+#   A document builder, defined in document.coffee, that stores the HTML,
 #   event definitions, and configuration settings needed to build the
 #   document.
 addHtmlIdsWhereEvents = (cdfNode, buildState) ->
@@ -105,7 +105,7 @@ validateUniqueIds = (cdfNode, buildState) ->
 # @param object cdfNode
 #   A reference to the CDF element is an instance of the given type
 # @param object buildState
-#   A document builer, defined in document.coffee, that stores the HTML, event
+#   A document builder, defined in document.coffee, that stores the HTML, event
 #   definitions, and configuration settings needed to build the document.
 #
 # @return array
@@ -120,13 +120,13 @@ validateChildElms = (cdfNode, buildState) ->
   if cdfNode.c is undefined
     return [true, null]
 
-  # Check and make sure that all the child elements have a declaired type that
+  # Check and make sure that all the child elements have a declared type that
   # maps to a know element type.  Then, check and make sure that the subtree
   # starting with each of those child elements is also valid.
   #
   # Note that we know that if there is a "c" property, its an array due to
   # the `validateProperties` function in the base type
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   [isSuccess, error] = iter.reduce cdfNode.c, _isValidChild, cdfType
   if not isSuccess
     return errors.generateErrorWithTrace error, cdfNode
@@ -152,9 +152,9 @@ validateChildElms = (cdfNode, buildState) ->
 _isValidChild = (childElm, parentType) ->
 
   # First check and and make sure that the given child element has
-  # a type declaired.
+  # a type declared.
   try
-    childType = typeRegistery.getType childElm
+    childType = typeRegistry.getType childElm
   catch error
     return [false, error]
 
@@ -194,7 +194,7 @@ elementRender = (cdfNode, buildState) ->
 # ========================== #
 
 # Takes a CDF object and returns a string representation of all the settings
-# declaired on the instance as HTML attributes.
+# declared on the instance as HTML attributes.
 #
 # Note that at this point we know that some of the settings (if they exist) are
 # safe to print from the `validateSettings` function in the base type
@@ -236,8 +236,6 @@ renderSettingsAsAttributes = (cdfNode) ->
 # For elements that have attributes, this is included in the rendered opening
 # tag.
 #
-# @param object cdfType
-#   A reference to the type definition
 # @param object cdfNode
 #   A reference to the CDF element is an instance of the given type
 #
@@ -245,7 +243,7 @@ renderSettingsAsAttributes = (cdfNode) ->
 #   Returns a string that is safe to display as the starting tag for a HTML
 #   element.
 renderStartTag = (cdfNode) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   attrString = renderSettingsAsAttributes cdfNode
   if attrString
     attrString = " " + attrString
@@ -256,15 +254,13 @@ renderStartTag = (cdfNode) ->
 # For elements that do not have an closing tag (ex "<img />") this is an empty
 # string.
 #
-# @param object cdfType
-#   A reference to the type definition
 # @param object cdfNode
 #   A reference to the CDF element is an instance of the given type
 #
 # @return string
 #   Returns a string that depicts the closing tag of a HTML element.
 renderEndTag = (cdfNode) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   if cdfType.isSelfClosing then "" else "</#{ cdfType.name }>"
 
 

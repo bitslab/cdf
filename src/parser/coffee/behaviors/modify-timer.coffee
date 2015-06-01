@@ -1,7 +1,7 @@
 "use strict"
 
 # This behavior allows for events to interact with timers that have been
-# created prevously, in the "timers" event module.
+# created previously, in the "timers" event module.
 #
 # Required Settings
 #  - timerId (string):
@@ -15,13 +15,13 @@
 errors = require "../utilities/errors"
 validation = require "../utilities/validation"
 baseBehavior = require "./base"
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 
 
-# Responsible for transforming the settings of the isntance of the given type
+# Responsible for transforming the settings of the instance of the given type
 # into an object of parameters that can be interpreted in the client's JS
 modifyTimersSettings = (cdfNode, buildState) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   cdfType.clientScripts.forEach (script) -> buildState.addScriptFile script
 
   behaviorSettings =

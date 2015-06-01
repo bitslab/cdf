@@ -1,12 +1,12 @@
 (function() {
   "use strict";
-  var baseBehavior, clone, deltaValidation, errors, iter, statesBehavior, typeRegistery, validateCommonSetting, validateInitialRange, validateInitialValueWithStates, validateStateId, validateStates, validation;
+  var baseBehavior, clone, deltaValidation, errors, iter, statesBehavior, typeRegistry, validateCommonSetting, validateInitialRange, validateInitialValueWithStates, validateStateId, validateStates, validation;
 
   errors = require("../utilities/errors");
 
   baseBehavior = require("./base");
 
-  typeRegistery = require("../utilities/type-registery");
+  typeRegistry = require("../utilities/type-registry");
 
   validation = require("../utilities/validation");
 
@@ -17,13 +17,13 @@
   clone = require("clone");
 
   validateStateId = function(cdfNode, buildState) {
-    var error, isPrevouslySeenState, stateDefinition, stateId, stateIdRegistery;
+    var error, isPrevouslySeenState, stateDefinition, stateId, stateIdRegistry;
     stateId = cdfNode.s.stateId;
     stateDefinition = cdfNode.s.states;
-    stateIdRegistery = buildState.config("stateIds");
-    isPrevouslySeenState = stateIdRegistery[stateId];
+    stateIdRegistry = buildState.config("stateIds");
+    isPrevouslySeenState = stateIdRegistry[stateId];
     if (stateDefinition && !isPrevouslySeenState) {
-      stateIdRegistery[stateId] = true;
+      stateIdRegistry[stateId] = true;
       return [true, null];
     }
     if (!stateDefinition && isPrevouslySeenState) {
@@ -77,7 +77,7 @@
     }
     numStates = cdfNode.s.states.length;
     if (initialSetting < 0 || initialSetting >= numStates) {
-      error = "Invaid 'initial' setting.  Must be in the range of [0, " + numStates + "]";
+      error = "Invalid 'initial' setting.  Must be in the range of [0, " + numStates + "]";
       return errors.generateErrorWithTrace(error, cdfNode);
     }
     return [true, null];
@@ -126,7 +126,7 @@
     };
     base.behaviorSettings = function(cdfNode, buildState) {
       var cdfType, cssSelector, deltaInst, deltaSettings, deltaType, key, settings, state, _i, _len, _ref;
-      cdfType = typeRegistery.getType(cdfNode);
+      cdfType = typeRegistry.getType(cdfNode);
       cdfType.clientScripts.forEach(function(script) {
         return buildState.addScriptFile(script);
       });
@@ -140,7 +140,7 @@
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             _ref1 = _ref[_i], cssSelector = _ref1[0], deltaInst = _ref1[1];
-            deltaType = typeRegistery.getType(deltaInst);
+            deltaType = typeRegistry.getType(deltaInst);
             deltaSettings = deltaType.deltaSettings(deltaInst, buildState);
             _results.push([cssSelector, deltaSettings]);
           }
@@ -159,7 +159,7 @@
               _results1 = [];
               for (_j = 0, _len1 = state.length; _j < _len1; _j++) {
                 _ref1 = state[_j], cssSelector = _ref1[0], deltaInst = _ref1[1];
-                deltaType = typeRegistery.getType(deltaInst);
+                deltaType = typeRegistry.getType(deltaInst);
                 deltaSettings = deltaType.deltaSettings(deltaInst, buildState);
                 _results1.push([cssSelector, deltaSettings]);
               }

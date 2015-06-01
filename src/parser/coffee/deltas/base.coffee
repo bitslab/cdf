@@ -26,13 +26,13 @@
 #   }
 # }
 
-typeRegistery = require "../utilities/type-registery"
+typeRegistry = require "../utilities/type-registry"
 baseType = require "../base"
 clone = require "clone"
 
 
 deltaSettings = (cdfNode, buildState) ->
-  cdfType = typeRegistery.getType cdfNode
+  cdfType = typeRegistry.getType cdfNode
   cdfType.clientScripts.forEach (script) -> buildState.addScriptFile script
 
   settings =
@@ -53,8 +53,8 @@ deltaBase = ->
   base.requiredSettings.push "change"
 
   # Deltas have no structural content in the document (though they might
-  # describe structural content).  Delta types shoudl implement the below
-  # function to retun an object with the following two properties.
+  # describe structural content).  Delta types should implement the below
+  # function to return an object with the following two properties.
   #  - t (string): The name of the delta being described
   #  - s (object): Configuration settings needed to execute this delta
   #                in the client.
