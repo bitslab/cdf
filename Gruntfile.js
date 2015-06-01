@@ -21,9 +21,46 @@ coffeeDirs.forEach(function (aPath) {
   });
 });
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+
+  var docAssetPath = path.join(__dirname, "docs", "assets"),
+    cssMarkdownPath = docAssetPath + "/github-markdown.css",
+    cssMarkdown = fs.readFileSync(cssMarkdownPath, {encoding: "utf8"}),
+    cssHighlightPath = docAssetPath + "/highlight.min.css",
+    cssHighlight = fs.readFileSync(cssHighlightPath, {encoding: "utf8"}); 
 
   grunt.initConfig({
+    markdown: {
+      all: {
+        options: {
+          postCompile: function (src, context) {
+            var injectedCss = "<style type='text/css'>" + cssMarkdown + "\n" + cssHighlight + "</style>",
+              parts = [
+                injectedCss,
+                '<article class="markdown-body">',
+                src,
+                '</article>'
+              ];
+
+            src = parts.join("\n");
+            return src;
+          },
+          markdownOptions: {
+            highlight: 'auto',
+            gfm: true
+          }
+        },
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: 'docs/markdown/*.md',
+            dest: 'docs/html/',
+            ext: '.html'
+          }
+        ]
+      }
+    },
     compass: {
       options: {
         config: 'demos/simple/config.rb',
@@ -50,7 +87,8 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-markdown');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.registerTask('default', ['coffee', 'compass']);
+  grunt.registerTask('default', ['coffee', 'compass', 'markdown']);
 };

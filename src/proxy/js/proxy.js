@@ -1,7 +1,9 @@
 (function() {
   "use strict";
-  var argparse, args, cdfMimeTypes, cdfParser, clientCodePath, debugMessage, escape, fs, http, parser, path, prettyjson, proxyServer, request, responseContentType, trustedInlineMimeTypes, url, wrappedMimeTypes,
+  var argparse, args, cdfMimeTypes, cdfParser, clientCodePath, constants, debugMessage, escape, fs, http, parser, path, prettyjson, proxyServer, request, responseContentType, trustedInlineMimeTypes, url, wrappedMimeTypes,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  constants = require("../../constants");
 
   argparse = require("argparse");
 
@@ -22,7 +24,7 @@
   cdfParser = require('../../parser/js/render');
 
   parser = new argparse.ArgumentParser({
-    version: 0.2,
+    version: constants.version,
     addHelp: true,
     description: "HTTP proxy that passes on HTTP requests from the client to the server, and then either coverts the server's CDF response into HTML and javascript to be rendered in the browser, or an HTML document describing why the server's response was invalid."
   });

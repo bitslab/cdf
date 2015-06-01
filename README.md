@@ -27,9 +27,11 @@ The code and resources in this repo are organized as follows:
 ### Gruntfile.js
 Build script, using the [Grunt](http://gruntjs.com) build system.  This is
 analogous to a Make file, though uses node to implement the build process.
-Build steps include compiling the coffeescript code into javascript and
+Build steps include compiling the coffeescript code into javascript,
 using [compass](http://compass-style.org/) to build the
-[SASS](http://sass-lang.com/) implemented styles in some of the demos.
+[SASS](http://sass-lang.com/) implemented styles in some of the demos, and
+building HTML versions of the documentation from the original markdown
+versions.
 
 ### README.md
 This very file you're reading right now.
@@ -42,7 +44,8 @@ work together.
 
 ### docs
 Reference documents, most importantly the reference definition of the CDF
-document format.
+document format.  Docs are written in markdown (from the `docs/markdown`
+subdirectory) and compiled into HTML (in the `docs/html` subdirectory).
 
 ### LICENSE.txt
 GPL3 license, which covers all of the code in the `/src` sub-directory. 

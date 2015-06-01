@@ -1,6 +1,8 @@
 (function() {
   "use strict";
-  var argparse, args, cdfData, cdfParser, fs, inputCDF, inputFile, inputIsArray, inputIsObject, isSuccess, output, outputHandle, outputPath, parseError, parser, renderFunc, _ref;
+  var argparse, args, cdfData, cdfParser, constants, fs, inputCDF, inputFile, inputIsArray, inputIsObject, isSuccess, output, outputHandle, outputPath, parseError, parser, renderFunc, _ref;
+
+  constants = require("../../constants");
 
   argparse = require("argparse");
 
@@ -9,7 +11,7 @@
   fs = require("fs");
 
   parser = new argparse.ArgumentParser({
-    version: 0.2,
+    version: constants.version,
     addHelp: true,
     description: "Command line tool to convert CDF documents and updates into HTML documents. If the root of the given file is a JSON encoded object / hash table, then the document is interpreted as a complete CDF document.  If the root is a JSON encoded array, the document is treated as a CDF update."
   });

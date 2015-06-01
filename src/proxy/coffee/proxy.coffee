@@ -1,5 +1,6 @@
 "use strict"
 
+constants = require "../../constants"
 argparse = require "argparse"
 url = require "url"
 path = require "path"
@@ -11,7 +12,7 @@ escape = require 'escape-html'
 cdfParser = require '../../parser/js/render'
 
 parser = new argparse.ArgumentParser
-  version: 0.2
+  version: constants.version
   addHelp: true
   description: "HTTP proxy that passes on HTTP requests from the client
                 to the server, and then either coverts the server's CDF

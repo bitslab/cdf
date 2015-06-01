@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 "use strict"
 
+constants = require "../../constants"
 argparse = require "argparse"
 cdfParser = require "./render"
 fs = require "fs"
 
 parser = new argparse.ArgumentParser
-  version: 0.2
+  version: constants.version
   addHelp: true
   description: "Command line tool to convert CDF documents and updates into
                 HTML documents.
