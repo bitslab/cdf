@@ -12,7 +12,7 @@
     var stateId, stateSetObject;
     stateId = settings.stateId;
     if (!stateId) {
-      throw "Missing an identifier for state behaivor";
+      throw "Missing an identifier for state behavior";
     }
     stateSetObject = stateSetRegistery[stateId];
     if (settings.index !== void 0 && settings.index !== null) {
@@ -28,7 +28,7 @@
     var aStateDef, boundStateSet, commonState, isWrapping, stateDefinitions, stateId, stateSetObject;
     stateId = settings.stateId;
     if (!stateId) {
-      throw "Missing an identifier for state behaivor";
+      throw "Missing an identifier for state behavior";
     }
     stateSetObject = stateSetRegistery[stateId];
     if (stateSetObject) {

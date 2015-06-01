@@ -163,7 +163,7 @@
             return;
           }
           proxyRequest.end();
-          responseStr = "<h1>Error requesting from: " + requestUrl + "</h1> <p>Remote server sent content of mime type " + receivedMimeType + " to be displayed inline (ie not having <code>Content-Disposition: Attachment</code>), so it was not passed through to the client.</p> <p>Only content of the following mime types are presented to the client to be displated inline:</p> <ul>" + (wrappedMimeTypes.join("")) + "</ul>";
+          responseStr = "<h1>Error requesting from: " + requestUrl + "</h1> <p>Remote server sent content of mime type " + receivedMimeType + " to be displayed inline (ie not having <code>Content-Disposition: Attachment</code>), so it was not passed through to the client.</p> <p>Only content of the following mime types are presented to the client to be displayed inline:</p> <ul>" + (wrappedMimeTypes.join("")) + "</ul>";
           proxyResponse.statusCode = 400;
           proxyResponse.end(responseStr);
           debugMessage(" - Reject, " + receivedMimeType);

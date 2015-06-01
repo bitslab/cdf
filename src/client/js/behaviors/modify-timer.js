@@ -12,7 +12,7 @@
     timerId = settings.timerId;
     timerObj = timerRegistery[timerId];
     if (!timerObj) {
-      throw "A modify-timer behavior instance tried to modify a timer with ID '" + timerId + "' that does not corespond to an existing timer object.";
+      throw "A modify-timer behavior instance tried to modify a timer with ID '" + timerId + "' that does not correspond to an existing timer object.";
     }
     switch (settings.action) {
       case "start":

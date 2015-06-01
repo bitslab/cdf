@@ -1,4 +1,4 @@
-# Registery objects that type definitions register themselves in, so that
+# Registry objects that type definitions register themselves in, so that
 # we can define general code for routing between events -> behaviors ->
 # deltas.
 crisp = window.CRISP =
@@ -37,9 +37,9 @@ registerBehaviorInstance = (behaviorInst) ->
 
 # Responsible for triggering a single behavior's instance, based on
 # a preexisting behavior definition in the global CRISP.behaviors
-# registery object.
+# registry object.
 #
-# Each call of this funciton is provided an object with
+# Each call of this function is provided an object with
 triggerBehaviorInstance = (behaviorInst) ->
   behaviorName = behaviorInst.t
   behaviorSettings = behaviorInst.s
@@ -50,16 +50,16 @@ triggerBehaviorInstance = (behaviorInst) ->
   # requested behavior type.  Again, the parser should have already ensured
   # this for us, so this check is mainly to make debugging easier.
   if not behaviorType
-    throw "Unable to find definition for behaivor: '#{behaviorName}'"
+    throw "Unable to find definition for behavior: '#{behaviorName}'"
 
   behaviorType behaviorSettings
 
 
 # Responsible for receiving an event definition from CDF, finding the
-# relevent event definition, and preparing the arguments for the event
+# relevant event definition, and preparing the arguments for the event
 # instance.
 #
-# Each object provided to this funciton will have three keys
+# Each object provided to this function will have three keys
 #   * "t" (string):  The name of the event that should be invoked here
 #   * "s" (object):  Settings parameters, used for specifying when this
 #                    event should trigger the attached behaviors
@@ -80,7 +80,7 @@ bindEventInstances = (eventInst) ->
   childBehaviors.forEach registerBehaviorInstance
 
   # First check and make sure that we can find an event definition for this
-  # declaired event type.  The parser should provide this for us,
+  # declared event type.  The parser should provide this for us,
   # so we're not going to try and gracefully handle this situation,
   # but just scream it as loudly as possible to make debugging easier.
   eventType = crisp.events[eventName]

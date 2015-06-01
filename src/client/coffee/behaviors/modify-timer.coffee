@@ -13,7 +13,7 @@ behaviorRegistery["modify-timer"] = (settings) ->
   timerObj = timerRegistery[timerId]
   if not timerObj
     throw "A modify-timer behavior instance tried to modify a timer with ID
-          '#{timerId}' that does not corespond to an existing timer object."
+          '#{timerId}' that does not correspond to an existing timer object."
 
   switch settings.action
     when "start" then do timerObj.start

@@ -39,7 +39,7 @@
     behaviorSettings = behaviorInst.s;
     behaviorType = crisp.behaviors[behaviorName];
     if (!behaviorType) {
-      throw "Unable to find definition for behaivor: '" + behaviorName + "'";
+      throw "Unable to find definition for behavior: '" + behaviorName + "'";
     }
     return behaviorType(behaviorSettings);
   };

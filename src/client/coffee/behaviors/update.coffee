@@ -20,7 +20,7 @@ applyDelta = (selectorDeltaPair) ->
   deltaType deltaSettings, domNodes
 
 
-# This funciton takes a css selector and returns the value that
+# This function takes a css selector and returns the value that
 # should be sent to the server when doing a CDF update behavior.  This
 # value will differ depending on the type of node returned for the CSS
 # selector.

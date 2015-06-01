@@ -3,7 +3,7 @@
 # Defines all client side code needed to implement timers in the system.
 # Each timer event instance in the CDF document is rendered by a timer
 # object (created by the `makeTimer` function below) and entered / maintained
-# in a registery, that associates the human readable name of the timer
+# in a registry, that associates the human readable name of the timer
 # with the timer object.
 #
 # Storing timers in this way allows us to interact with them through the
@@ -29,7 +29,7 @@ timerRegistery = {}
 #
 makeTimer = (timerSettings, cb) ->
 
-  # The interger value returned by window.setTimeout or window.setInterval,
+  # The integer value returned by window.setTimeout or window.setInterval,
   # used so that we can stop the event if needed.
   timeoutId = null
 

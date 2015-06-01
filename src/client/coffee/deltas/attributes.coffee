@@ -23,7 +23,7 @@ deltasRegistry.classes = (settings, domNodes) ->
 #                       set of properties that are safe to modify
 #                       in the document, and the values being either strings
 #                       (for properties to set / modify) or `null`,
-#                       indicating the properity should be removed.
+#                       indicating the property should be removed.
 deltasRegistry.properties = (settings, domNodes) ->
   attrsToChange = settings.change
   for attrName, attrValue of attrsToChange

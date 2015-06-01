@@ -128,7 +128,7 @@ proxyServer = http.createServer (originalRequest, proxyResponse) ->
       requestOptions.headers.cookie = origRequestCookies
 
     proxyRequest = request requestOptions, (error, response, body) ->
-      # Last, if we're here in the flow, it means that the server advertiesed
+      # Last, if we're here in the flow, it means that the server advertised
       # the content as CDF.  So, first step is to attempt to parse it as JSON.
       try
         cdfData = JSON.parse body
@@ -207,7 +207,7 @@ proxyServer = http.createServer (originalRequest, proxyResponse) ->
                      <code>Content-Disposition: Attachment</code>), so it was
                      not passed through to the client.</p>
                      <p>Only content of the following mime types are presented
-                     to the client to be displated inline:</p>
+                     to the client to be displayed inline:</p>
                      <ul>#{wrappedMimeTypes.join ""}</ul>"
         proxyResponse.statusCode = 400
         proxyResponse.end responseStr
