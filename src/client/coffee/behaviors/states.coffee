@@ -20,13 +20,13 @@ behaviorRegistery.states = (settings) ->
   # reference.
   stateId = settings.stateId
   if not stateId
-    throw "Missing an identifier for state behaivor"
+    throw "Missing an identifier for state behavior"
 
   stateSetObject = stateSetRegistery[stateId]
 
   # Now that we know we have a correctly populated state set object,
   # we just need to respond to call the method on the state set object
-  # that correponds to the behavior's definition (basically this just
+  # that corresponds to the behavior's definition (basically this just
   # amounts to a big old switch statement).
   if settings.index isnt undefined and settings.index isnt null
     stateSetObject.setState settings.index
@@ -39,10 +39,10 @@ behaviorRegistery.states = (settings) ->
 behaviorRegistery.states.register = (settings) ->
   stateId = settings.stateId
   if not stateId
-    throw "Missing an identifier for state behaivor"
+    throw "Missing an identifier for state behavior"
 
   # If this is the first time we see a state set with this Id, we need to
-  # register it, so that it can be referneced elsewhere
+  # register it, so that it can be referenced elsewhere
   stateSetObject = stateSetRegistery[stateId]
   if stateSetObject
     return
@@ -74,7 +74,7 @@ behaviorRegistery.states.register = (settings) ->
 #   function.
 # @param bool wraps (default: false)
 #   Whether the state should move from the last state to the first state
-#   when advanced from the last state.  If false, nothing happens when avanced
+#   when advanced from the last state.  If false, nothing happens when advanced
 #   from the last state.  This parameter similarly controls what happens when
 #   the state set is retreated from the first index.
 # @param array|null commonState (default: null)
