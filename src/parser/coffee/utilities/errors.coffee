@@ -82,7 +82,6 @@ generateErrorWithTrace = (error, cdfNode) ->
   \n----------
   \n#{ treeTraceString }"
 
-  console.log errorString
   [false, errorString]
 
 

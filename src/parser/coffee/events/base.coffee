@@ -6,6 +6,7 @@ validators = require "../utilities/validation"
 renderUtils = require "../utilities/render"
 baseDefinition = require "../base"
 clone = require 'clone'
+errors = require "../utilities/errors"
 
 
 eventChildNodes = (cdfNode) ->
@@ -45,8 +46,6 @@ addParentConnectionToBehaviors = (cdfNode, buildState) ->
 # attached.  Otherwise, the event is triggering with nothing to do, which is
 # either a waste or likely an error we can catch early by being strict on this.
 #
-# @param object cdfType
-#   A reference to the type definition
 # @param object cdfNode
 #   A reference to the CDF event is an instance of the given type
 # @param object buildState
@@ -66,7 +65,21 @@ validateHasBehaviors = (cdfNode, buildState) ->
   # in it.
   if not cdfNode.b or cdfNode.b.length is 0
     err = "'#{ cdfNode.t }' has no behaviors attached to it.  All events
-    must have at least one associated behavior"
+           must have at least one associated behavior"
+    return errors.generateErrorWithTrace err, cdfNode
+
+  # At this point we know there is an array of one or more "somethings".
+  # We now need to check and make sure that all the children are valid
+  # behavior instances.
+  behaviorTypeChildren = cdfNode.b.filter (child) ->
+    typeRegistry.typeCategory(child) is "behavior"
+  
+  # Here we just count the number of children that are behavior instances.
+  # If the count doesn't match the number of children, then trivially
+  # there is at least one child that isn't a behavior
+  if behaviorTypeChildren.length isnt cdfNode.b.length
+    err = "'#{ cdfNode.t }' has at least one child that is not a valid
+           behavior instance"
     return errors.generateErrorWithTrace err, cdfNode
 
   [true, null]
@@ -84,12 +97,10 @@ baseEvent = ->
   # Other event definitions can specify additional validation behavior by
   # pushing functions onto this list, or overwrite it completely.
   #
-  # Each function in this array will be called with three arguments.
-  #   - eventDef (object):  A reference to the event definition
-  #   - eventInst (object): A reference to the CDF element is an instance of
-  #                         the given event type
-  #   - cdfDoc (object):    A reference to the entire CDF document that contains
-  #                         the element and the element instance
+  # Each function in this array will be called with two arguments.
+  #   - eventInst (object):  A reference to the CDF element is an instance of
+  #                          the given event type
+  #   - buildState (object): A document state tracking object 
   #
   # It should return an array with two elements in it, the first being whether
   # the validation was successful.  If "false", then the second item

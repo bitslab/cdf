@@ -45,7 +45,6 @@
     var errorString, treeTraceString;
     treeTraceString = generatePathFromRoot(cdfNode);
     errorString = "" + error + " \n \nElement \n--------- \n" + (util.inspect(cdfNode)) + " \n \nTrace \n---------- \n" + treeTraceString;
-    console.log(errorString);
     return [false, errorString];
   };
 

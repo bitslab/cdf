@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  var addParentConnectionToBehaviors, baseDefinition, baseEvent, clone, elementConstants, eventChildNodes, eventRender, renderUtils, typeRegistry, validateHasBehaviors, validators;
+  var addParentConnectionToBehaviors, baseDefinition, baseEvent, clone, elementConstants, errors, eventChildNodes, eventRender, renderUtils, typeRegistry, validateHasBehaviors, validators;
 
   typeRegistry = require("../utilities/type-registry");
 
@@ -13,6 +13,8 @@
   baseDefinition = require("../base");
 
   clone = require('clone');
+
+  errors = require("../utilities/errors");
 
   eventChildNodes = function(cdfNode) {
     return cdfNode.b;
@@ -50,9 +52,16 @@
   };
 
   validateHasBehaviors = function(cdfNode, buildState) {
-    var err;
+    var behaviorTypeChildren, err;
     if (!cdfNode.b || cdfNode.b.length === 0) {
       err = "'" + cdfNode.t + "' has no behaviors attached to it.  All events must have at least one associated behavior";
+      return errors.generateErrorWithTrace(err, cdfNode);
+    }
+    behaviorTypeChildren = cdfNode.b.filter(function(child) {
+      return typeRegistry.typeCategory(child) === "behavior";
+    });
+    if (behaviorTypeChildren.length !== cdfNode.b.length) {
+      err = "'" + cdfNode.t + "' has at least one child that is not a valid behavior instance";
       return errors.generateErrorWithTrace(err, cdfNode);
     }
     return [true, null];

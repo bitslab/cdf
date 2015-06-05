@@ -259,8 +259,7 @@ The below example shows how these types compose to represent a simple story.
   "t": "p",
   "c": [
     {
-      "text": "Yesterday, the strangest thing happened to me.  I woke up and
-               then "
+      "text": "Yesterday, the strangest thing happened to me.  I woke up and then "
     },
     {
       "t": "strong",
@@ -290,6 +289,28 @@ The below example shows how these types compose to represent a simple story.
 ```
 
 ### Block Types
+Block types are generally used to distinguish sections of a document from
+each other.  The term comes from HTML, which has a distinction between
+inline elements and [block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements).
+CDF's selection of block types are all taken from HTML.  All of these types
+accept the previously described *id* and *class* settings.
+
+  * `div`: A semantic-less container for text or other block level elements
+    in the document.
+  * `p`: A container element intended to contain only text and images, and
+    not other structrual content.
+  * `article`: A container meant to indicate that all the content and structure
+    within relates to a single topic, concept or sub-document.
+  * `header`: A container intended to store meta / annotating information
+     about an acompaning `article`, such as a title, author, etc.
+  * `footer`: A container intended to store other semantically relevant
+    information relating to an accompaning `article`.  Often contains
+    things like page numbers, copyright information, etc.
+  * `h{1,6}`: Container for content headers.  Note that while headers
+    imply a hiearchy of information, they are not nested, they are arbitrarly
+    located in the document.
+
+
 ### List Types
 ### Table Types
 ### Form Types

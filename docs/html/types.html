@@ -1017,40 +1017,60 @@ can be layed out in the document before the image has been fetched.
 Accepts a valid pixel string (ex 100 or 300px).</li>
 </ul>
 <p>The below example shows how these types compose to represent a simple story.</p>
-<pre><code class="lang-json"><span class="hljs-collection">{
-  <span class="hljs-string">"t"</span>: <span class="hljs-string">"p"</span>,
-  <span class="hljs-string">"c"</span>: <span class="hljs-collection">[
-    <span class="hljs-collection">{
-      <span class="hljs-string">"text"</span>: <span class="hljs-string">"Yesterday, the strangest thing happened to me.  I woke up and
-               then "</span>
-    }</span>,
-    <span class="hljs-collection">{
-      <span class="hljs-string">"t"</span>: <span class="hljs-string">"strong"</span>,
-      <span class="hljs-string">"c"</span>: <span class="hljs-collection">[
-        <span class="hljs-collection">{
-          <span class="hljs-string">"text"</span>: <span class="hljs-string">"bang!"</span>
-        }</span>
-      ]</span>
-    }</span>,
-    <span class="hljs-collection">{
-      <span class="hljs-string">"text"</span>: <span class="hljs-string">"Something belew up in the back room and I was really scared. "</span>
-    }</span>,
-    <span class="hljs-collection">{
-      <span class="hljs-string">"t"</span>: <span class="hljs-string">"a"</span>,
-      <span class="hljs-string">"s"</span>: <span class="hljs-collection">{
-        <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://www.youtube.com/watch?v=dQw4w9WgXcQ"</span>,
-        <span class="hljs-string">"title"</span>: <span class="hljs-string">"Video of the scary thing I saw :)"</span>
-      }</span>,
-      <span class="hljs-string">"c"</span>: <span class="hljs-collection">[
-        <span class="hljs-collection">{
-          <span class="hljs-string">"text"</span>: <span class="hljs-string">"Click here if you wanna see what I saw!"</span>
-        }</span>
-      ]</span>
-    }</span>
-  ]</span>
-}</span>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"p"</span></span>,
+  "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Yesterday, the strangest thing happened to me.  I woke up and then "</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"strong"</span></span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"bang!"</span>
+        </span>}
+      ]
+    </span>},
+    {
+      "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Something belew up in the back room and I was really scared. "</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"a"</span></span>,
+      "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"https://www.youtube.com/watch?v=dQw4w9WgXcQ"</span></span>,
+        "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Video of the scary thing I saw :)"</span>
+      </span>}</span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Click here if you wanna see what I saw!"</span>
+        </span>}
+      ]
+    </span>}
+  ]
+</span>}
 </code></pre>
 <h3 id="block-types">Block Types</h3>
+<p>Block types are generally used to distinguish sections of a document from
+each other.  The term comes from HTML, which has a distinction between
+inline elements and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">block-level elements</a>.
+CDF&#39;s selection of block types are all taken from HTML.  All of these types
+accept the previously described <em>id</em> and <em>class</em> settings.</p>
+<ul>
+<li><code>div</code>: A semantic-less container for text or other block level elements
+in the document.</li>
+<li><code>p</code>: A container element intended to contain only text and images, and
+not other structrual content.</li>
+<li><code>article</code>: A container meant to indicate that all the content and structure
+within relates to a single topic, concept or sub-document.</li>
+<li><code>header</code>: A container intended to store meta / annotating information
+ about an acompaning <code>article</code>, such as a title, author, etc.</li>
+<li><code>footer</code>: A container intended to store other semantically relevant
+information relating to an accompaning <code>article</code>.  Often contains
+things like page numbers, copyright information, etc.</li>
+<li><code>h{1,6}</code>: Container for content headers.  Note that while headers
+imply a hiearchy of information, they are not nested, they are arbitrarly
+located in the document.</li>
+</ul>
 <h3 id="list-types">List Types</h3>
 <h3 id="table-types">Table Types</h3>
 <h3 id="form-types">Form Types</h3>
