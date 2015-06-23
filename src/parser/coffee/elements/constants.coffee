@@ -8,7 +8,7 @@ inlineTypes = [
 
 blockTypes = [
   "header", "aside", "article", "footer", "p", "h1", "h2", "h3", "h4", "h5",
-  "h6", "ul", "div", "form", "table", "ol", "dl"
+  "h6", "ul", "div", "form", "table", "ol", "dl", "audio", "video"
 ]
 
 module.exports =

@@ -25,6 +25,7 @@
     anElm.validSettings.controls = ["controls"];
     anElm.validSettings.loop = ["loop"];
     anElm.validSettings.preload = ["none", "metadata", "auto"];
+    anElm.validChildElementTypes = [];
     anElm.requiredSettings = ["src"];
     return anElm;
   };
@@ -39,6 +40,7 @@
     anElm.validSettings.controls = ["controls"];
     anElm.validSettings.loop = ["loop"];
     anElm.validSettings.preload = ["none", "metadata", "auto"];
+    anElm.validChildElementTypes = [];
     anElm.requiredSettings = ["src"];
     return anElm;
   };
