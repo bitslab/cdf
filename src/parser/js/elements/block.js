@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  var baseElement, div, elementConstants, headerTypeMaker, makeSimpleContainerTag, p;
+  var audio, baseElement, div, elementConstants, headerTypeMaker, makeSimpleContainerTag, p, video;
 
   baseElement = require("./base");
 
@@ -11,6 +11,35 @@
     anElm = baseElement.base();
     anElm.name = "div";
     anElm.validChildElementTypes = elementConstants.flowTypes;
+    return anElm;
+  };
+
+  video = function() {
+    var anElm;
+    anElm = baseElement.base();
+    anElm.name = "video";
+    anElm.isSelfClosing = true;
+    anElm.validSettings.src = "safe url";
+    anElm.validSettings.poster = "safe url";
+    anElm.validSettings.autoplay = ["autoplay"];
+    anElm.validSettings.controls = ["controls"];
+    anElm.validSettings.loop = ["loop"];
+    anElm.validSettings.preload = ["none", "metadata", "auto"];
+    anElm.requiredSettings = ["src"];
+    return anElm;
+  };
+
+  audio = function() {
+    var anElm;
+    anElm = baseElement.base();
+    anElm.name = "audio";
+    anElm.isSelfClosing = true;
+    anElm.validSettings.src = "safe url";
+    anElm.validSettings.autoplay = ["autoplay"];
+    anElm.validSettings.controls = ["controls"];
+    anElm.validSettings.loop = ["loop"];
+    anElm.validSettings.preload = ["none", "metadata", "auto"];
+    anElm.requiredSettings = ["src"];
     return anElm;
   };
 
@@ -53,7 +82,9 @@
     article: makeSimpleContainerTag("article"),
     header: makeSimpleContainerTag("header"),
     footer: makeSimpleContainerTag("footer"),
-    aside: makeSimpleContainerTag("aside")
+    aside: makeSimpleContainerTag("aside"),
+    video: video,
+    audio: audio
   };
 
 }).call(this);

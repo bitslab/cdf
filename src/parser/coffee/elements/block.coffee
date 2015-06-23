@@ -11,6 +11,37 @@ div = ->
   return anElm
 
 
+video = ->
+  anElm = do baseElement.base
+  anElm.name = "video"
+  anElm.isSelfClosing = yes
+  anElm.validSettings.src = "safe url"
+  anElm.validSettings.poster = "safe url"
+  anElm.validSettings.autoplay = ["autoplay"]
+  anElm.validSettings.controls = ["controls"]
+  anElm.validSettings.loop = ["loop"]
+  anElm.validSettings.preload = ["none", "metadata", "auto"]
+
+  anElm.requiredSettings = ["src"]
+  return anElm
+
+
+audio = ->
+  anElm = do baseElement.base
+  anElm.name = "audio"
+
+  anElm.isSelfClosing = yes
+  anElm.validSettings.src = "safe url"
+  anElm.validSettings.autoplay = ["autoplay"]
+  anElm.validSettings.controls = ["controls"]
+  anElm.validSettings.loop = ["loop"]
+  anElm.validSettings.preload = ["none", "metadata", "auto"]
+
+  anElm.requiredSettings = ["src"]
+  return anElm
+
+
+
 makeSimpleContainerTag = (tagName) ->
   ->
     anElm = do baseElement.base
@@ -46,3 +77,5 @@ module.exports =
   header: makeSimpleContainerTag "header"
   footer: makeSimpleContainerTag "footer"
   aside: makeSimpleContainerTag "aside"
+  video: video
+  audio: audio
