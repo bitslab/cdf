@@ -11,6 +11,8 @@ allTypes =
     "remove-subtree": "deltas/structure"
     "update-subtree": "deltas/structure"
   "element":
+    "video": "elements/block"
+    "audio": "elements/block"
     "div": "elements/block"
     "p": "elements/block"
     "h1": "elements/block"
