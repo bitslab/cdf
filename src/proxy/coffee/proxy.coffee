@@ -171,7 +171,7 @@ proxyServer = http.createServer (originalRequest, proxyResponse) ->
       if setCookieHeader
           proxyResponse.setHeader 'Set-Cookie', setCookieHeader
 
-      proxyResponse.setHeader "Content-Type", "text/html"
+      proxyResponse.setHeader "Content-Type", "text/html; charset=utf-8"
       proxyResponse.statusCode = 200
       proxyResponse.end cdfDocument
 

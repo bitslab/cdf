@@ -143,7 +143,7 @@
         if (setCookieHeader) {
           proxyResponse.setHeader('Set-Cookie', setCookieHeader);
         }
-        proxyResponse.setHeader("Content-Type", "text/html");
+        proxyResponse.setHeader("Content-Type", "text/html; charset=utf-8");
         proxyResponse.statusCode = 200;
         return proxyResponse.end(cdfDocument);
       });
