@@ -134,7 +134,7 @@
             noColor: true
           });
           safeBody = escape(formattedJson);
-          responseStr = "<h1>Error parsing CDF data from: " + requestUrl + "</h1> <label>CDF Parse Error:</label> <pre>" + cdfDocument + "</pre> <hr /> <label>Received Structure</label> <textarea rows='20' style='width: 100%;'>" + safeBody + " </textarea>";
+          responseStr = "<h1>Error parsing CDF data from: " + requestUrl + "</h1> <label>CDF Parse Error:</label> <pre>" + (escape(cdfDocument)) + "</pre> <hr /> <label>Received Structure</label> <textarea rows='20' style='width: 100%;'>" + safeBody + " </textarea>";
           proxyResponse.statusCode = 400;
           proxyResponse.end(responseStr);
           return;
