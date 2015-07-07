@@ -42,7 +42,7 @@
 
   args = parser.parseArgs();
 
-  clientCodePath = path.join(__dirname);
+  clientCodePath = path.join(__dirname, "..", "..", "client", "js");
 
   trustedInlineMimeTypes = ["audio/webm", "audio/mp4", "audio/ogg", "audio/mpeg", "image/gif", "image/jpeg", "image/jpg", "image/png", "image/svg+xml", "image/x-icon", "image/vnd.microsoft.icon", "video/mp4", "video/ogg", "video/webm", "text/css", "application/font-woff", "font/opentype", "application/font-sfnt", "application/x-font-opentype", "application/x-font-ttf"];
 
