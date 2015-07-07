@@ -31,7 +31,7 @@ parser.addArgument ['-p', '--port'],
 
 args = do parser.parseArgs
 
-clientCodePath = path.join __dirname
+clientCodePath = path.join __dirname, "..", "..", "client", "js"
 
 trustedInlineMimeTypes = [
   # Audio types for <audio>
