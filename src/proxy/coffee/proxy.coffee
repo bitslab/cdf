@@ -104,7 +104,8 @@ proxyServer = http.createServer (originalRequest, proxyResponse) ->
     # disk.
     if requestPath.indexOf("/crisp-client") is 0
       try
-        possibleJSLocation = path.join clientCodePath, requestPath
+        requestedFile = requestPath.replace "/crisp-client/js", ""
+        possibleJSLocation = path.join clientCodePath, requestedFile
         jsFileContents = fs.readFileSync possibleJSLocation
         proxyResponse.statusCode = 200
         proxyResponse.end jsFileContents

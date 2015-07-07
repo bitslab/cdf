@@ -78,7 +78,7 @@
       return requestBody += chunk;
     });
     return originalRequest.on("end", function() {
-      var error, jsFileContents, origRequestCookies, possibleJSLocation, proxyRequest, requestMethod, requestOptions, requestPath, requestUrl, urlParts;
+      var error, jsFileContents, origRequestCookies, possibleJSLocation, proxyRequest, requestMethod, requestOptions, requestPath, requestUrl, requestedFile, urlParts;
       debugMessage("Received request for: " + originalRequest.url);
       requestMethod = originalRequest.method;
       requestUrl = originalRequest.url;
@@ -86,7 +86,8 @@
       requestPath = urlParts.path;
       if (requestPath.indexOf("/crisp-client") === 0) {
         try {
-          possibleJSLocation = path.join(clientCodePath, requestPath);
+          requestedFile = requestPath.replace("/crisp-client/js", "");
+          possibleJSLocation = path.join(clientCodePath, requestedFile);
           jsFileContents = fs.readFileSync(possibleJSLocation);
           proxyResponse.statusCode = 200;
           proxyResponse.end(jsFileContents);
