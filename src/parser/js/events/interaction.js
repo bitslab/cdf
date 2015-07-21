@@ -43,7 +43,6 @@
       base = basicFlowEvent(eventName);
       base.clientScripts.push("events/basic");
       base.validSettings.keyCodes = "array:int";
-      base.render = render;
       return base;
     };
   };
