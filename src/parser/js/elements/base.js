@@ -164,7 +164,8 @@
     base.validSettings = {
       id: "html id",
       "class": "array:html class",
-      role: "string"
+      role: "string",
+      tabindex: "uint"
     };
     base.childNodes = elementChildNodes;
     base.render = elementRender;

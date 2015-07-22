@@ -311,6 +311,7 @@ baseElement = ->
     id: "html id"
     class: "array:html class"
     role: "string"
+    tabindex: "uint"
 
   base.childNodes = elementChildNodes
   base.render = elementRender
