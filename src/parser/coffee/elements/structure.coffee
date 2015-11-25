@@ -121,7 +121,6 @@ link = ->
                              "icon", "index", "last", "license", "next",
                              "pingback", "prefetch", "prev", "search",
                              "stylesheet", "sidebar", "tag", "up"]
-  anElm.validSettings.rev = "string"
   anElm.validSettings.href = "local url"
   anElm.validSettings.title = "string"
   anElm.validSettings.media = "string"

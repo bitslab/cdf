@@ -244,12 +244,12 @@ setting:
 The `img` type also accepts several optional settings:
 
   * *alt*: Used to describe the image being included, either for text-only
-    or vision impared clients.  Accepts an arbitrary string as input.
+    or vision impaired clients.  Accepts an arbitrary string as input.
   * *width*: Describes the width of the image being displayed, so that it
-    can be layed out in the document before the image has been fetched.
+    can be laid out in the document before the image has been fetched.
     Accepts a valid pixel string (ex 100 or 300px).
   * *height*: Describes the height of the image being displayed, so that it
-    can be layed out in the document before the image has been fetched.
+    can be laid out in the document before the image has been fetched.
     Accepts a valid pixel string (ex 100 or 300px).
 
 The below example shows how these types compose to represent a simple story.
@@ -270,7 +270,7 @@ The below example shows how these types compose to represent a simple story.
       ]
     },
     {
-      "text": "Something belew up in the back room and I was really scared. "
+      "text": "Something blew up in the back room and I was really scared. "
     },
     {
       "t": "a",
@@ -298,16 +298,16 @@ accept the previously described *id* and *class* settings.
   * `div`: A semantic-less container for text or other block level elements
     in the document.
   * `p`: A container element intended to contain only text and images, and
-    not other structrual content.
+    not other structural content.
   * `article`: A container meant to indicate that all the content and structure
     within relates to a single topic, concept or sub-document.
   * `header`: A container intended to store meta / annotating information
-     about an acompaning `article`, such as a title, author, etc.
+     about an accompanying `article`, such as a title, author, etc.
   * `footer`: A container intended to store other semantically relevant
-    information relating to an accompaning `article`.  Often contains
+    information relating to an accompanying `article`.  Often contains
     things like page numbers, copyright information, etc.
   * `h{1,6}`: Container for content headers.  Note that while headers
-    imply a hiearchy of information, they are not nested, they are arbitrarly
+    imply a hierarchy of information, they are not nested, they are arbitrary
     located in the document.
   * `aside`: A container intended to some content aside from the content it 
      is placed in, such as a sidebar.
@@ -324,9 +324,9 @@ setting.
 Finally, `video` and `audio` types accept the below optional settings.
 
   * *autoplay*: If set, takes the string "autoplay" to indicate that the
-    refereneced media should start playing immediatly.
+    referenced media should start playing immediately.
   * *controls*: If set, accepts the string "controls", indicating that the
-    browser / client should provide the user with defaul multimedia controls
+    browser / client should provide the user with default multimedia controls
     (a start button, a stop button, etc.)
   * *loop*: If set, accepts the string "loop", indicating that when the player
     reaches the end of the referenced media, it should continue playing the
@@ -336,12 +336,12 @@ Finally, `video` and `audio` types accept the below optional settings.
     it only when the user wants to start playing it, "metadata", indicating
     that the client should fetch metadata about the media, such as the length,
     right away, but not the media itself, or "auto", indicating that the
-    media should be fetched immediatly.
+    media should be fetched immediately.
 
 
 ### List Types
 CDF has types for expressing three types of lists, ordered, unordered, and
-definition lists (again, mirrioring HTML).  
+definition lists (again, mirroring HTML).  
 
 Ordered lists are indicated by a `ol` (ordered list) element, which accepts
 zero or more children of type `li` (list item).  Unordered lists, or lists 
@@ -428,7 +428,7 @@ accept the same types of child types, etc.).
 
 `thead`, `tfoot` and `tbody` all accept zero or more instances of the `tr`
 type (table row).  Each `tr` element then accepts zero or more 
-`th` (table header) or `td` (table data) elements, depecting content
+`th` (table header) or `td` (table data) elements, depicting content
 that should be displayed in a cell in the table.
 
 `td` and `th` accept the below optional settings (note that the final setting 
@@ -523,7 +523,7 @@ Below is a simple example of a table that describes two Simpsons characters.
 Form types allow authors to create form style applications in CDF, either for
 submission in HTTP full page submissions, or composed with the `updates`
 type to perform submission to the server that happen without needing to
-referesh the page.
+refresh the page.
 
 Forms that will be sent to the server with a page submission, and which the
 client expects a new CDF document in return, begin with an instance of
@@ -550,8 +550,8 @@ the `form` type.  The `form` type accepts the following optional settings.
 The `form` type accepts any block or inline types as children, with the
 exception of other `form` instance (ie `form` instances can not be nested).
 
-The `form` type is generally invisble to the user.  Users instead interact
-with `input`, `select`, `option`, `textarea` and `button` types (collectivly,
+The `form` type is generally invisible to the user.  Users instead interact
+with `input`, `select`, `option`, `textarea` and `button` types (collectively,
 "input types").  When a `form` is submitted, the values contained in the
 input types in the subtree of the document are sent.
 
@@ -559,7 +559,7 @@ input types in the subtree of the document are sent.
 #### Input Type
 The `input` type generally describes a page element that takes input from
 a user.  `input` instances are always leaves in the CDF document.  The `input`
-type is used to depict a large nubmer of different inputs, determined by the
+type is used to depict a large number of different inputs, determined by the
 instance's *type* setting.
 
 In most cases the *type* setting describes constrains that should be placed on
@@ -691,13 +691,13 @@ text nodes define the initial value of the field.
 
 
 #### Labels
-The `label` type provides a consistant and semantically meaningful way for
+The `label` type provides a consistent and semantically meaningful way for
 document authors to describe the purpose / role of form fields to users.
 Clients use these labels to provide accessibility information for screen
 readers, as well as typical text based labels.
 
 `labels` are generally title of an input element.  This association between
-the label an the form element is created in one of two ways, either:
+the label and the form element is created in one of two ways, either:
 
   1. Nesting the input element being described by the `label` as a child of
      the label, or
@@ -790,6 +790,133 @@ a new CDF document.
 ```
 
 ### Document Structure Types
+The final set of element types in CDF are those used to define the metadata
+of the document, along with other non-presentation aspects of the document.
+
+
+#### Page Structure
+All CDF documents must start with a root node of type `html`, just as
+all HTML documents start with a root `<html>` tag.  Additionally, there can
+only be one `html` instance per-document (ie `html` instances cannot be
+children of any other nodes).  The `html` type accepts as children
+only `head` and `body` nodes, and a maximum of one each.
+
+The `html` type accepts the following optional settings:
+
+  * *lang*: A string depicting the ISO language code for the text in the
+    document, for example "en" for English, or "es" for Spanish.
+  * *manifest*: A string representing a URL to a resource on the same domain
+    as the current page.  If provided, the URL should return a manifest file
+    to enable the page to run when not online.  For more details, see the
+    [application caches](https://html.spec.whatwg.org/#applicationcache)
+    section of the HTML5 spec.
+
+
+#### Head Section
+The `head` type must be the child of the document's `html` instance.  The
+`head` section of the document provides metadata information that is not
+directly rendered to the client (at least not as part of the document display.
+The `head` instance does not accept any settings, and accepts children of
+three types, `meta`, `title` and `link`.
+
+The `meta` type provides information about the document, such as tags
+for search engines to index the document against, the author of the document,
+and so on.  The `meta` type does not accept any children, but accepts the
+following optional settings.
+
+  * *http-equiv*: Takes a string, describing a HTTP header.  This requests
+    that the browser interpret this document as if it was delivered with
+    this HTTP header, with value depicted in the *content* setting.
+  * *name*: A string identifier for this piece of metadata, such as "author"
+    or "keywords".
+  * *content*: A string, the payload of the metadata field, such as the name
+    of the author of the document, or the command for the corresponding
+    *http-equiv* instruction.
+  * *charset*: A string, describing the character encoding for the HTML
+    document
+
+The second type that `head` type accepts as a child is the `title` type.  This
+type has the simple purpose of giving the title of the document, which is
+used in title bars in browsers, or sometimes as the name of the document
+when saved to disk.  The `title` type accepts no settings and accepts only
+children of type `text`.
+
+The final type the `head` type accepts as a child is the `link` type.  The
+`link` type is used to describe relationships between the current document
+and other URLs.  The most common use of this type is to link to styling
+information for the document.  The `link` type accepts the following
+optional settings.
+
+
+  * *rel*: A string describing the relationship described by this link.  The 
+    most common value is "stylesheet", though other accepted values are
+    listed by the [Link standard generated by the W3C](http://www.w3.org/wiki/HTML/Elements/link)
+  * *href*: A string describing a URL on the same domain as the given document.
+    This value is the URL being categorized by the `link` instance.
+  * *title*: A string, providing further information about this relationship.
+    For example, if the relationship described by this `link` is for the
+    next page in a sequence of pages, the *title* setting might list the
+    title of the next page.
+  * *media*: A string describing what media/device the target resource is
+    optimized for.  Common values include "screen" and "print".
+  * *type*: A string describing the mime/type of the asset being referenced,
+    such as "text/css"
+
+
+#### Body Section
+The other structural element type allowed (and required) to be a child of
+the document's `html` root instance is the `body` type.  The body accepts
+as children all of the above discussed element types (with the few exceptions
+of the `html`, `head` and other structural types, along with types like
+`option` that have specific requirements for a parent type.
+
+The `body` type accepts the same settings as most other element types, such as
+*id* and *class*.
+
+
+#### Example Structure
+The below is a very simple example of the structure of a CDF document, with
+any content in that document omitted.
+
+```json
+{
+  "t": "html",
+  "s": {
+    "lang": "en"
+  },
+  "c": [
+    {
+      "t": "head",
+      "c": [
+        {
+          "t": "meta",
+          "s": {
+            "charset": "UTF-8"
+          }
+        },
+        {
+          "t": "link",
+          "s": {
+            "href": "/css/styles.css",
+            "rel": "stylesheet",
+            "type" "text/css"
+          }
+        },
+        {
+          "t": "title",
+          "c": [{"text": "CDF Structure Example"}]
+        }
+      ]
+    },
+    {
+      "t": "body",
+      "c": [<omitted>]
+    }
+  ]
+}
+```
+
+
 
 ## Event Types
 ### Interaction
