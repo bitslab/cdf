@@ -1070,10 +1070,447 @@ things like page numbers, copyright information, etc.</li>
 <li><code>h{1,6}</code>: Container for content headers.  Note that while headers
 imply a hiearchy of information, they are not nested, they are arbitrarly
 located in the document.</li>
+<li><code>aside</code>: A container intended to some content aside from the content it 
+ is placed in, such as a sidebar.</li>
+</ul>
+<h4 id="multimedia">Multimedia</h4>
+<p>There are two additional, multimedia handling types in CDF, <code>video</code> and
+<code>audio</code>.  They, and the arguments they take, map closely onto the HTML5
+<code>video</code> and <code>audio</code> types.  Both types require the below described <code>src</code>
+setting.</p>
+<ul>
+<li><em>src</em>: Required, takes as argument an HTTP or HTTPS url describing where
+the related media can be found.</li>
+</ul>
+<p>Finally, <code>video</code> and <code>audio</code> types accept the below optional settings.</p>
+<ul>
+<li><em>autoplay</em>: If set, takes the string &quot;autoplay&quot; to indicate that the
+refereneced media should start playing immediatly.</li>
+<li><em>controls</em>: If set, accepts the string &quot;controls&quot;, indicating that the
+browser / client should provide the user with defaul multimedia controls
+(a start button, a stop button, etc.)</li>
+<li><em>loop</em>: If set, accepts the string &quot;loop&quot;, indicating that when the player
+reaches the end of the referenced media, it should continue playing the
+media from the beginning.</li>
+<li><em>preload</em>: Accepts any of the following strings, &quot;none&quot;, indicating that
+the client should not attempt to preload the media, and should request
+it only when the user wants to start playing it, &quot;metadata&quot;, indicating
+that the client should fetch metadata about the media, such as the length,
+right away, but not the media itself, or &quot;auto&quot;, indicating that the
+media should be fetched immediatly.</li>
 </ul>
 <h3 id="list-types">List Types</h3>
+<p>CDF has types for expressing three types of lists, ordered, unordered, and
+definition lists (again, mirrioring HTML).  </p>
+<p>Ordered lists are indicated by a <code>ol</code> (ordered list) element, which accepts
+zero or more children of type <code>li</code> (list item).  Unordered lists, or lists 
+where the order of the children is not semantically meaningful, are indicated
+by the <code>ul</code> (unordered list) element, also with zero or more <code>li</code> elements
+as children.  <code>li</code> elements accept any inline types as children.</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"ul"</span></span>,
+  "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"li"</span></span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+        {"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"First item"</span></span>}
+      ]
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"li"</span></span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+        {"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Second item"</span></span>}
+      ]
+    </span>}
+  ]
+</span>}
+</code></pre>
+<p>Definition lists define pairs of names and descriptions of those names.
+The parent element is of type <code>dl</code> (definition list) and takes pairs of child
+elements, <code>dt</code> (definition term), which contains the element being defined,
+and <code>dd</code> (definition definition), which contains the definition of the
+element.</p>
+<pre><code class="lang-json"><span class="hljs-collection">{
+  <span class="hljs-string">"t"</span>: <span class="hljs-string">"dl"</span>,
+  <span class="hljs-string">"s"</span>: <span class="hljs-collection">{
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"simpsons-parents"</span>
+  }</span>,
+  <span class="hljs-string">"c"</span>: <span class="hljs-collection">[
+    <span class="hljs-collection">{
+      <span class="hljs-string">"t"</span>: <span class="hljs-string">"dt"</span>,
+      <span class="hljs-string">"c"</span>: <span class="hljs-collection">[
+        <span class="hljs-collection">{<span class="hljs-string">"text"</span>: <span class="hljs-string">"Marge Simpson"</span>}</span>
+      ]</span>
+    }</span>,
+    <span class="hljs-collection">{
+      <span class="hljs-string">"t"</span>: <span class="hljs-string">"dd"</span>,
+      <span class="hljs-string">"c"</span>: <span class="hljs-collection">{
+        <span class="hljs-collection">{<span class="hljs-string">"text"</span>: <span class="hljs-string">"Mother of the family"</span>}</span>
+      }</span>
+    }</span>,
+    <span class="hljs-collection">{
+      <span class="hljs-string">"t"</span>: <span class="hljs-string">"dt"</span>,
+      <span class="hljs-string">"c"</span>: <span class="hljs-collection">[
+        <span class="hljs-collection">{<span class="hljs-string">"text"</span>: <span class="hljs-string">"Homer Simpson"</span>}</span>
+      ]</span>
+    }</span>,
+    <span class="hljs-collection">{
+      <span class="hljs-string">"t"</span>: <span class="hljs-string">"dd"</span>,
+      <span class="hljs-string">"c"</span>: <span class="hljs-collection">{
+        <span class="hljs-collection">{<span class="hljs-string">"text"</span>: <span class="hljs-string">"Father of the family"</span>}</span>
+      }</span>
+    }</span>
+  ]</span>
+}</span>
+</code></pre>
 <h3 id="table-types">Table Types</h3>
+<p>CDF includes elements to express table-structured data, where the rows, columns
+and headings are semantically meaningful.  CDF&#39;s element types are again
+taken directly from HTML, including nesting / child rules.</p>
+<p>Tables begin with a <code>table</code> element.  The <code>table</code> type is a standard block
+element, and so accepts the common element attributes (<em>class</em> and <em>id</em>).</p>
+<p>The <code>table</code> type accepts one of three types of elements as children,
+<code>thead</code>, indicating heading information for the table, <code>tfoot</code>, indicating
+footer or summary information for the table, and <code>tbody</code>, the primary content
+of the table.  These three types are intended to have different semantic
+meaning to the client, but are treated identically by CDF (ie they all
+accept the same types of child types, etc.).</p>
+<p><code>thead</code>, <code>tfoot</code> and <code>tbody</code> all accept zero or more instances of the <code>tr</code>
+type (table row).  Each <code>tr</code> element then accepts zero or more 
+<code>th</code> (table header) or <code>td</code> (table data) elements, depecting content
+that should be displayed in a cell in the table.</p>
+<p><code>td</code> and <code>th</code> accept the below optional settings (note that the final setting 
+in this section only applies the <code>th</code> elements).</p>
+<ul>
+<li><em>colspan</em>: Takes a positive integer describing the number of columns that
+this cell should span across in the table.  </li>
+<li><em>rowspan</em>: Takes a positive integer describing the number of rows that this 
+cell should span vertically in the table.</li>
+<li><em>scope</em>: (applies only to <code>th</code> elements) Takes one of four strings,
+describing how this heading value should be understood.  Valid values
+are &quot;col&quot; (cell is a header for a column, default), &quot;row&quot; (cell is a header
+for a row), &quot;colgroup&quot; (cell is a header for a group of columns) and
+&quot;rowgroup&quot; (cell is a header for a group of rows).</li>
+</ul>
+<p>Below is a simple example of a table that describes two Simpsons characters.</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"table"</span></span>,
+  "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"simpsons-family"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"thead"</span></span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"tr"</span></span>,
+          "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"th"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"First name"</span></span>}]
+            </span>},
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"th"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Last name"</span></span>}]
+            </span>},
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"th"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Role"</span></span>}]
+            </span>}
+          ]
+        </span>}
+      ]
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"tbody"</span></span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"tr"</span></span>,
+          "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"td"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Marge"</span></span>}]
+            </span>},
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"td"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Simpson"</span></span>}]
+            </span>},
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"td"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Mother"</span></span>}]
+            </span>}
+          ]
+        </span>},
+        {
+          "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"tr"</span></span>,
+          "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"td"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Homer"</span></span>}]
+            </span>},
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"td"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Simpson"</span></span>}]
+            </span>},
+            {
+              "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"td"</span></span>,
+              "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Father"</span></span>}]
+            </span>}
+          ]
+        </span>}
+      ]
+    </span>}
+  ]
+</span>}
+</code></pre>
 <h3 id="form-types">Form Types</h3>
+<p>Form types allow authors to create form style applications in CDF, either for
+submission in HTTP full page submissions, or composed with the <code>updates</code>
+type to perform submission to the server that happen without needing to
+referesh the page.</p>
+<p>Forms that will be sent to the server with a page submission, and which the
+client expects a new CDF document in return, begin with an instance of
+the <code>form</code> type.  The <code>form</code> type accepts the following optional settings.</p>
+<ul>
+<li><em>name</em>: Takes a string and is used to name the set of values being
+submitted in the form submission.</li>
+<li><em>enctype</em>: Describes how the values in the form should be encoded when
+submitted to the server.  This setting accepts three strings,
+&quot;application/x-www-form-urlencoded&quot; (values should be url encoded when
+submitted, default), &quot;multipart/form-data&quot; (values should not be encoded,
+but submitted with section dividers, required when submitting files in
+the form) and &quot;text/plain&quot; (only the space character is encoded with &quot;+&quot;,
+but values are otherwise unencoded).</li>
+<li><em>method</em>: Describes the HTTP method that should be used when submitting
+the form values to the server.  Valid values are &quot;GET&quot; (form values
+should be submitted in the URL as query parameters) and &quot;POST&quot; (form
+values should be included in the body of the HTTP request, required
+when dealing with file uploads).</li>
+<li><em>action</em>: Accepts a string describing a HTTP URL on the same domain
+that the current page is served from.  If not provided, the form values
+are submitted to the current URL.</li>
+</ul>
+<p>The <code>form</code> type accepts any block or inline types as children, with the
+exception of other <code>form</code> instance (ie <code>form</code> instances can not be nested).</p>
+<p>The <code>form</code> type is generally invisble to the user.  Users instead interact
+with <code>input</code>, <code>select</code>, <code>option</code>, <code>textarea</code> and <code>button</code> types (collectivly,
+&quot;input types&quot;).  When a <code>form</code> is submitted, the values contained in the
+input types in the subtree of the document are sent.</p>
+<h4 id="input-type">Input Type</h4>
+<p>The <code>input</code> type generally describes a page element that takes input from
+a user.  <code>input</code> instances are always leaves in the CDF document.  The <code>input</code>
+type is used to depict a large nubmer of different inputs, determined by the
+instance&#39;s <em>type</em> setting.</p>
+<p>In most cases the <em>type</em> setting describes constrains that should be placed on
+the input accepted from the user (ex must be numeric, or a date, etc.).
+However, when <em>type</em> is &quot;submit&quot;, the input is rendered in a special case,
+as a button that, when clicked, submits the form.  </p>
+<p>The <code>input</code> type accepts the following optional settings:</p>
+<ul>
+<li><em>name</em>: A string naming / label the value being submitted.</li>
+<li><em>type</em>: Accepts a string, describing the type of input expected.  Most
+clients will use this value to render a type-specific widget, to aid
+the user in inputting the requested value (ex a calendar widget
+for inputting dates).  Common values here are &quot;text&quot;, &quot;number&quot;, &quot;date&quot;,
+&quot;email&quot;, &quot;file&quot;, &quot;submit&quot;, &quot;checkbox&quot;, &quot;password&quot;, &quot;radio&quot; and &quot;hidden&quot; 
+(with the last case indicating that the value should not be visible to the
+user at all).</li>
+<li><em>value</em>: In most cases, this setting takes a string that should be used
+as the initial value for the form.  When the <code>input</code> has type
+&quot;submit&quot;, this value is also used as the label of the button the user
+presses to submit this form.</li>
+<li><em>readonly</em>: Accepts either the empty string, indicating that this input
+is <strong>not</strong> readonly and that the user should be able to interact
+with it normally, or the string &quot;readonly&quot;, indicating that the value
+<strong>should</strong> be submitted with the form, but <strong>should not</strong> be editable
+by her.</li>
+<li><em>disabled</em>: Accepts an optional string, either &quot;&quot; (empty string) or
+&quot;disabled&quot;.  If the latter, the user will not be able to interact
+with this form element and the corresponding value will not be submitted
+to the server when the form is submitted.</li>
+<li><em>checked</em>: Only used when type is &quot;checkbox&quot; or &quot;radio&quot;.  Accepts an
+optional string, either the empty string, indicating that this input
+should not be selected initially, or &quot;checked&quot;, indicating that the input
+<strong>should</strong> be selected initially.</li>
+<li><em>placeholder</em>: Used when the type is &quot;email&quot;, &quot;text&quot; or &quot;number&quot;. Takes
+a string that should be presented to the user when the input is empty.
+This value <strong>is not</strong> sent to the server if the form is submitted.</li>
+<li><em>required</em>: Accepts either the string &quot;required&quot;, indicating that the
+user should be prevented from submitting the form if this <code>input</code> instance
+does not have a value, or the empty string, indicating that the form
+can be submitted without this element having a value.</li>
+</ul>
+<h4 id="mutually-exclusive-options">Mutually Exclusive Options</h4>
+<p>The <code>select</code> type describes a set of values a user can choose from.  The
+<code>select</code> type is the container, and the individual options are defined with
+<code>option</code> types.</p>
+<p>The <code>select</code> type accepts the following optional settings:</p>
+<ul>
+<li><em>name</em>: A string naming / label the value being submitted.</li>
+<li><em>disabled</em>: Accepts an optional string, either &quot;&quot; (empty string) or
+&quot;disabled&quot;.  If the latter, the user will not be able to interact
+with this form element and the corresponding value will not be submitted
+to the server when the form is submitted.</li>
+</ul>
+<p>The <code>select</code> type accepts zero or more children of type <code>option</code>, each
+describing a possible option.  The <code>option</code> type accepts the following
+optional settings:</p>
+<ul>
+<li><em>value</em>: The string value that should be submitted to the server if this
+option is selected by the user.</li>
+<li><em>selected</em>: Accepts either the empty string, indicating that this option
+is not currently selected in the parent <code>select</code> instance, or &quot;selected&quot;,
+indicating that this <code>option</code> instance should be selected by default.</li>
+</ul>
+<p><code>option</code> instances accept zero or more <code>text</code> instances as children, with the
+text forming the user-visible label for this option.</p>
+<h4 id="buttons">Buttons</h4>
+<p>The <code>button</code> type is used to depict an element that users can click on to
+produce some form related response.  They are generally presented identically
+to an <code>input</code> instance with &quot;type&quot; submit.  They are commonly used for
+AJAX applications (in CDF, using the <code>updates</code> event type), but can also
+be used to submit forms.</p>
+<p>The button type accepts the following optional settings.</p>
+<ul>
+<li><em>name</em>: A string naming / label the value being submitted.</li>
+<li><em>type</em>: Indicates the role of the button in the form.  Accepts the
+following strings, &quot;button&quot; (indicating that clicking the element <strong>should
+not</strong> submit the form), &quot;submit&quot; (indicating that clicking the element
+<strong>should</strong> submit the form) and &quot;reset&quot; (indicating that clicking
+the element should reset the values of the inputs in the form to their
+initial values).</li>
+<li><em>value</em>: The value that should be submitted to the server if this
+button has <em>type</em> &quot;submit&quot; and the user clicked on this button.</li>
+<li><em>readonly</em>: Accepts either the empty string, indicating that this input
+is <strong>not</strong> readonly and that the user should be able to interact
+with it normally, or the string &quot;readonly&quot;, indicating that the value
+<strong>should</strong> be submitted with the form, but <strong>should not</strong> be editable
+by her.</li>
+<li><em>disabled</em>: Accepts an optional string, either &quot;&quot; (empty string) or
+&quot;disabled&quot;.  If the latter, the user will not be able to interact
+with this form element and the corresponding value will not be submitted
+to the server when the form is submitted.</li>
+</ul>
+<p>The <code>button</code> type accepts all inline types as children, with the exception
+of the following types: <code>a</code>, <code>input</code>, <code>select</code>, <code>textarea</code>, <code>label</code> and <code>form</code>.</p>
+<h4 id="textareas">Textareas</h4>
+<p>The <code>textarea</code> type allows users to input a large amount of text, usually
+depicted as a text input with multiple rows.  Unlike the other discussed
+input types, the value that is submitted to the server by a <code>textarea</code>
+instance is determined by the subtree of <code>text</code> nodes below the <code>textarea</code>
+instance.</p>
+<p>The <code>textarea</code> accepts the following optional settings:</p>
+<ul>
+<li><em>name</em>: A string naming the value controlled by the <code>textarea</code> instance</li>
+<li><em>readonly</em>: Accepts either the string &quot;readonly&quot;, indicating that the
+instance is is not editable by the user, or the empty string (default)
+indicating that the user can interact with the <code>textarea</code> as normal.</li>
+<li><em>disabled</em>: Accepts an optional string, either &quot;disabled&quot;, indicating that
+the field is not editable by the user <strong>and</strong> that the value should not
+be submitted to the user if the form is submitted, or an empty string.</li>
+<li><em>placeholder</em>: Takes a string, that should be presented to the user if the
+<code>textarea</code> contains no text.  This value is not sent to the server if the
+form is submitted.</li>
+<li><em>cols</em>: Takes a positive integer, indicating how wide the <code>textarea</code> widget
+should be, measured in characters.</li>
+<li><em>rows</em>: Takes a positive] integer, indicating how tall the <code>textarea</code>
+widget should be rendered, measured in characters.</li>
+</ul>
+<p>The <code>textarea</code> type only accepts child elements of type <code>text</code>.  These
+text nodes define the initial value of the field.</p>
+<h4 id="labels">Labels</h4>
+<p>The <code>label</code> type provides a consistant and semantically meaningful way for
+document authors to describe the purpose / role of form fields to users.
+Clients use these labels to provide accessibility information for screen
+readers, as well as typical text based labels.</p>
+<p><code>labels</code> are generally title of an input element.  This association between
+the label an the form element is created in one of two ways, either:</p>
+<ol>
+<li>Nesting the input element being described by the <code>label</code> as a child of
+the label, or</li>
+<li>Using the <em>for</em> setting on the label to indicating the <em>id</em> of the
+form input being described.</li>
+</ol>
+<p>The <code>label</code> type accepts the following option settings:</p>
+<ul>
+<li><em>for</em>: A string describing the <em>name</em> or <em>id</em> of the input element being
+described by the <code>label</code> instance.</li>
+</ul>
+<h4 id="example-form">Example Form</h4>
+<p>The below is a complete, if simple, example <code>form</code>, of the type that might
+be used in a sign up form on a website.  On submission, this form would
+send the text values in the input elements to the signup endpoint on the
+server, which would then be expected to respond to that request with
+a new CDF document.</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"form"</span></span>,
+  "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"POST"</span></span>,
+    "<span class="hljs-attribute">action</span>": <span class="hljs-value"><span class="hljs-string">"/signup"</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"signup_form"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"label"</span></span>,
+      "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">for</span>": <span class="hljs-value"><span class="hljs-string">"first_name"</span>
+      </span>}</span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"First name"</span></span>}]
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"input"</span></span>,
+      "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"text"</span></span>,
+        "<span class="hljs-attribute">placeholder</span>": <span class="hljs-value"><span class="hljs-string">"Please enter your first name"</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"first_name"</span></span>,
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"first_name"</span>
+      </span>}
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"label"</span></span>,
+      "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">for</span>": <span class="hljs-value"><span class="hljs-string">"email"</span>
+      </span>}</span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[{"<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Email address"</span></span>}]
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"input"</span></span>,
+      "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"email"</span></span>,
+        "<span class="hljs-attribute">required</span>": <span class="hljs-value"><span class="hljs-string">"required"</span></span>,
+        "<span class="hljs-attribute">placeholder</span>": <span class="hljs-value"><span class="hljs-string">"account@example.org"</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"email"</span></span>,
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"email"</span>
+      </span>}
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"label"</span></span>,
+      "<span class="hljs-attribute">c</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Did you read the terms and conditions?"</span>
+        </span>},
+        {
+          "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"input"</span></span>,
+          "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"checkbox"</span></span>,
+            "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"terms"</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"id"</span>
+          </span>}
+        </span>}
+      ]
+    </span>},
+    {
+      "<span class="hljs-attribute">t</span>": <span class="hljs-value"><span class="hljs-string">"input"</span></span>,
+      "<span class="hljs-attribute">s</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"Submit"</span></span>,
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"submit"</span></span>,
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"submit"</span>
+      </span>}
+    </span>}
+  ]
+</span>}
+</code></pre>
 <h3 id="document-structure-types">Document Structure Types</h3>
 <h2 id="event-types">Event Types</h2>
 <h3 id="interaction">Interaction</h3>

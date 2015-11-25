@@ -22,7 +22,9 @@ form = ->
   anElm.name = "form"
 
   anElm.validSettings.name = "string"
-  anElm.validSettings.enctype = "string"
+  anElm.validSettings.enctype = ["application/x-www-form-urlencoded",
+                                 "multipart/form-data",
+                                 "text/plain"]
   anElm.validSettings.action = "local url"
   anElm.validSettings.method = ["GET", "POST"]
 
@@ -76,7 +78,7 @@ button = ->
   anElm.name = "button"
 
   _addStandardInputAttrs anElm
-  anElm.validSettings.type = "string"
+  anElm.validSettings.type = ["button", "reset", "submit"]
 
   invalidBtnChildren = ["a", "input", "select", "textarea", "label", "form"]
   validButtonChildren = arrayTools.removeMany consts.flowTypes, invalidBtnChildren
@@ -90,8 +92,8 @@ textarea = ->
   anElm.name = "textarea"
 
   _addStandardInputAttrs anElm
-  anElm.validSettings.cols = "int"
-  anElm.validSettings.rows = "int"
+  anElm.validSettings.cols = "uint"
+  anElm.validSettings.rows = "uint"
 
   anElm.validChildElementTypes = ["text"]
   return anElm

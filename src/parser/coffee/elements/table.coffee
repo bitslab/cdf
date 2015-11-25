@@ -29,8 +29,8 @@ tr = ->
 td = ->
   anElm = do blockElements.div
   anElm.name = "td"
-  anElm.validSettings.colspan = "int"
-  anElm.validSettings.rowspan = "int"
+  anElm.validSettings.colspan = "uint"
+  anElm.validSettings.rowspan = "uint"
   anElm.validChildElementTypes = consts.flowTypes
   return anElm
 
@@ -38,8 +38,8 @@ td = ->
 th = ->
   anElm = do td
   anElm.name = "th"
-  anElm.validSettings.colspan = "int"
-  anElm.validSettings.rowspan = "int"
+  anElm.validSettings.colspan = "uint"
+  anElm.validSettings.rowspan = "uint"
   anElm.validSettings.scope = ["col", "colgroup", "row", "rowgroup"]
   return anElm
 

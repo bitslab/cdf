@@ -309,11 +309,486 @@ accept the previously described *id* and *class* settings.
   * `h{1,6}`: Container for content headers.  Note that while headers
     imply a hiearchy of information, they are not nested, they are arbitrarly
     located in the document.
+  * `aside`: A container intended to some content aside from the content it 
+     is placed in, such as a sidebar.
+
+#### Multimedia
+There are two additional, multimedia handling types in CDF, `video` and
+`audio`.  They, and the arguments they take, map closely onto the HTML5
+`video` and `audio` types.  Both types require the below described `src`
+setting.
+
+  * *src*: Required, takes as argument an HTTP or HTTPS url describing where
+    the related media can be found.
+
+Finally, `video` and `audio` types accept the below optional settings.
+
+  * *autoplay*: If set, takes the string "autoplay" to indicate that the
+    refereneced media should start playing immediatly.
+  * *controls*: If set, accepts the string "controls", indicating that the
+    browser / client should provide the user with defaul multimedia controls
+    (a start button, a stop button, etc.)
+  * *loop*: If set, accepts the string "loop", indicating that when the player
+    reaches the end of the referenced media, it should continue playing the
+    media from the beginning.
+  * *preload*: Accepts any of the following strings, "none", indicating that
+    the client should not attempt to preload the media, and should request
+    it only when the user wants to start playing it, "metadata", indicating
+    that the client should fetch metadata about the media, such as the length,
+    right away, but not the media itself, or "auto", indicating that the
+    media should be fetched immediatly.
 
 
 ### List Types
+CDF has types for expressing three types of lists, ordered, unordered, and
+definition lists (again, mirrioring HTML).  
+
+Ordered lists are indicated by a `ol` (ordered list) element, which accepts
+zero or more children of type `li` (list item).  Unordered lists, or lists 
+where the order of the children is not semantically meaningful, are indicated
+by the `ul` (unordered list) element, also with zero or more `li` elements
+as children.  `li` elements accept any inline types as children.
+
+```json
+{
+  "t": "ul",
+  "c": [
+    {
+      "t": "li",
+      "c": [
+        {"text": "First item"}
+      ]
+    },
+    {
+      "t": "li",
+      "c": [
+        {"text": "Second item"}
+      ]
+    }
+  ]
+}
+```
+
+Definition lists define pairs of names and descriptions of those names.
+The parent element is of type `dl` (definition list) and takes pairs of child
+elements, `dt` (definition term), which contains the element being defined,
+and `dd` (definition definition), which contains the definition of the
+element.
+
+```json
+{
+  "t": "dl",
+  "s": {
+    "id": "simpsons-parents"
+  },
+  "c": [
+    {
+      "t": "dt",
+      "c": [
+        {"text": "Marge Simpson"}
+      ]
+    },
+    {
+      "t": "dd",
+      "c": {
+        {"text": "Mother of the family"}
+      }
+    },
+    {
+      "t": "dt",
+      "c": [
+        {"text": "Homer Simpson"}
+      ]
+    },
+    {
+      "t": "dd",
+      "c": {
+        {"text": "Father of the family"}
+      }
+    }
+  ]
+}
+```
+
+
 ### Table Types
+CDF includes elements to express table-structured data, where the rows, columns
+and headings are semantically meaningful.  CDF's element types are again
+taken directly from HTML, including nesting / child rules.
+
+Tables begin with a `table` element.  The `table` type is a standard block
+element, and so accepts the common element attributes (*class* and *id*).
+
+The `table` type accepts one of three types of elements as children,
+`thead`, indicating heading information for the table, `tfoot`, indicating
+footer or summary information for the table, and `tbody`, the primary content
+of the table.  These three types are intended to have different semantic
+meaning to the client, but are treated identically by CDF (ie they all
+accept the same types of child types, etc.).
+
+`thead`, `tfoot` and `tbody` all accept zero or more instances of the `tr`
+type (table row).  Each `tr` element then accepts zero or more 
+`th` (table header) or `td` (table data) elements, depecting content
+that should be displayed in a cell in the table.
+
+`td` and `th` accept the below optional settings (note that the final setting 
+in this section only applies the `th` elements).
+
+  * *colspan*: Takes a positive integer describing the number of columns that
+    this cell should span across in the table.  
+  * *rowspan*: Takes a positive integer describing the number of rows that this 
+    cell should span vertically in the table.
+  * *scope*: (applies only to `th` elements) Takes one of four strings,
+    describing how this heading value should be understood.  Valid values
+    are "col" (cell is a header for a column, default), "row" (cell is a header
+    for a row), "colgroup" (cell is a header for a group of columns) and
+    "rowgroup" (cell is a header for a group of rows).
+
+
+Below is a simple example of a table that describes two Simpsons characters.
+```json
+{
+  "t": "table",
+  "s": {
+    "id": "simpsons-family"
+  },
+  "c": [
+    {
+      "t": "thead",
+      "c": [
+        {
+          "t": "tr",
+          "c": [
+            {
+              "t": "th",
+              "c": [{"text": "First name"}]
+            },
+            {
+              "t": "th",
+              "c": [{"text": "Last name"}]
+            },
+            {
+              "t": "th",
+              "c": [{"text": "Role"}]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "t": "tbody",
+      "c": [
+        {
+          "t": "tr",
+          "c": [
+            {
+              "t": "td",
+              "c": [{"text": "Marge"}]
+            },
+            {
+              "t": "td",
+              "c": [{"text": "Simpson"}]
+            },
+            {
+              "t": "td",
+              "c": [{"text": "Mother"}]
+            }
+          ]
+        },
+        {
+          "t": "tr",
+          "c": [
+            {
+              "t": "td",
+              "c": [{"text": "Homer"}]
+            },
+            {
+              "t": "td",
+              "c": [{"text": "Simpson"}]
+            },
+            {
+              "t": "td",
+              "c": [{"text": "Father"}]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+
 ### Form Types
+Form types allow authors to create form style applications in CDF, either for
+submission in HTTP full page submissions, or composed with the `updates`
+type to perform submission to the server that happen without needing to
+referesh the page.
+
+Forms that will be sent to the server with a page submission, and which the
+client expects a new CDF document in return, begin with an instance of
+the `form` type.  The `form` type accepts the following optional settings.
+
+  * *name*: Takes a string and is used to name the set of values being
+    submitted in the form submission.
+  * *enctype*: Describes how the values in the form should be encoded when
+    submitted to the server.  This setting accepts three strings,
+    "application/x-www-form-urlencoded" (values should be url encoded when
+    submitted, default), "multipart/form-data" (values should not be encoded,
+    but submitted with section dividers, required when submitting files in
+    the form) and "text/plain" (only the space character is encoded with "+",
+    but values are otherwise unencoded).
+  * *method*: Describes the HTTP method that should be used when submitting
+    the form values to the server.  Valid values are "GET" (form values
+    should be submitted in the URL as query parameters) and "POST" (form
+    values should be included in the body of the HTTP request, required
+    when dealing with file uploads).
+  * *action*: Accepts a string describing a HTTP URL on the same domain
+    that the current page is served from.  If not provided, the form values
+    are submitted to the current URL.
+
+The `form` type accepts any block or inline types as children, with the
+exception of other `form` instance (ie `form` instances can not be nested).
+
+The `form` type is generally invisble to the user.  Users instead interact
+with `input`, `select`, `option`, `textarea` and `button` types (collectivly,
+"input types").  When a `form` is submitted, the values contained in the
+input types in the subtree of the document are sent.
+
+
+#### Input Type
+The `input` type generally describes a page element that takes input from
+a user.  `input` instances are always leaves in the CDF document.  The `input`
+type is used to depict a large nubmer of different inputs, determined by the
+instance's *type* setting.
+
+In most cases the *type* setting describes constrains that should be placed on
+the input accepted from the user (ex must be numeric, or a date, etc.).
+However, when *type* is "submit", the input is rendered in a special case,
+as a button that, when clicked, submits the form.  
+
+The `input` type accepts the following optional settings:
+
+  * *name*: A string naming / label the value being submitted.
+  * *type*: Accepts a string, describing the type of input expected.  Most
+    clients will use this value to render a type-specific widget, to aid
+    the user in inputting the requested value (ex a calendar widget
+    for inputting dates).  Common values here are "text", "number", "date",
+    "email", "file", "submit", "checkbox", "password", "radio" and "hidden" 
+    (with the last case indicating that the value should not be visible to the
+    user at all).
+  * *value*: In most cases, this setting takes a string that should be used
+    as the initial value for the form.  When the `input` has type
+    "submit", this value is also used as the label of the button the user
+    presses to submit this form.
+  * *readonly*: Accepts either the empty string, indicating that this input
+    is **not** readonly and that the user should be able to interact
+    with it normally, or the string "readonly", indicating that the value
+    **should** be submitted with the form, but **should not** be editable
+    by her.
+  * *disabled*: Accepts an optional string, either "" (empty string) or
+    "disabled".  If the latter, the user will not be able to interact
+    with this form element and the corresponding value will not be submitted
+    to the server when the form is submitted.
+  * *checked*: Only used when type is "checkbox" or "radio".  Accepts an
+    optional string, either the empty string, indicating that this input
+    should not be selected initially, or "checked", indicating that the input
+    **should** be selected initially.
+  * *placeholder*: Used when the type is "email", "text" or "number". Takes
+    a string that should be presented to the user when the input is empty.
+    This value **is not** sent to the server if the form is submitted.
+  * *required*: Accepts either the string "required", indicating that the
+    user should be prevented from submitting the form if this `input` instance
+    does not have a value, or the empty string, indicating that the form
+    can be submitted without this element having a value.
+
+
+#### Mutually Exclusive Options
+The `select` type describes a set of values a user can choose from.  The
+`select` type is the container, and the individual options are defined with
+`option` types.
+
+The `select` type accepts the following optional settings:
+
+  * *name*: A string naming / label the value being submitted.
+  * *disabled*: Accepts an optional string, either "" (empty string) or
+    "disabled".  If the latter, the user will not be able to interact
+    with this form element and the corresponding value will not be submitted
+    to the server when the form is submitted.
+
+The `select` type accepts zero or more children of type `option`, each
+describing a possible option.  The `option` type accepts the following
+optional settings:
+
+  * *value*: The string value that should be submitted to the server if this
+    option is selected by the user.
+  * *selected*: Accepts either the empty string, indicating that this option
+    is not currently selected in the parent `select` instance, or "selected",
+    indicating that this `option` instance should be selected by default.
+    
+`option` instances accept zero or more `text` instances as children, with the
+text forming the user-visible label for this option.
+
+
+#### Buttons
+The `button` type is used to depict an element that users can click on to
+produce some form related response.  They are generally presented identically
+to an `input` instance with "type" submit.  They are commonly used for
+AJAX applications (in CDF, using the `updates` event type), but can also
+be used to submit forms.
+
+The button type accepts the following optional settings.
+
+  * *name*: A string naming / label the value being submitted.
+  * *type*: Indicates the role of the button in the form.  Accepts the
+    following strings, "button" (indicating that clicking the element **should
+    not** submit the form), "submit" (indicating that clicking the element
+    **should** submit the form) and "reset" (indicating that clicking
+    the element should reset the values of the inputs in the form to their
+    initial values).
+  * *value*: The value that should be submitted to the server if this
+    button has *type* "submit" and the user clicked on this button.
+  * *readonly*: Accepts either the empty string, indicating that this input
+    is **not** readonly and that the user should be able to interact
+    with it normally, or the string "readonly", indicating that the value
+    **should** be submitted with the form, but **should not** be editable
+    by her.
+  * *disabled*: Accepts an optional string, either "" (empty string) or
+    "disabled".  If the latter, the user will not be able to interact
+    with this form element and the corresponding value will not be submitted
+    to the server when the form is submitted.
+
+The `button` type accepts all inline types as children, with the exception
+of the following types: `a`, `input`, `select`, `textarea`, `label` and `form`.
+
+
+#### Textareas
+The `textarea` type allows users to input a large amount of text, usually
+depicted as a text input with multiple rows.  Unlike the other discussed
+input types, the value that is submitted to the server by a `textarea`
+instance is determined by the subtree of `text` nodes below the `textarea`
+instance.
+
+The `textarea` accepts the following optional settings:
+
+  * *name*: A string naming the value controlled by the `textarea` instance
+  * *readonly*: Accepts either the string "readonly", indicating that the
+    instance is is not editable by the user, or the empty string (default)
+    indicating that the user can interact with the `textarea` as normal.
+  * *disabled*: Accepts an optional string, either "disabled", indicating that
+    the field is not editable by the user **and** that the value should not
+    be submitted to the user if the form is submitted, or an empty string.
+  * *placeholder*: Takes a string, that should be presented to the user if the
+    `textarea` contains no text.  This value is not sent to the server if the
+    form is submitted.
+  * *cols*: Takes a positive integer, indicating how wide the `textarea` widget
+    should be, measured in characters.
+  * *rows*: Takes a positive] integer, indicating how tall the `textarea`
+    widget should be rendered, measured in characters.
+
+The `textarea` type only accepts child elements of type `text`.  These
+text nodes define the initial value of the field.
+
+
+#### Labels
+The `label` type provides a consistant and semantically meaningful way for
+document authors to describe the purpose / role of form fields to users.
+Clients use these labels to provide accessibility information for screen
+readers, as well as typical text based labels.
+
+`labels` are generally title of an input element.  This association between
+the label an the form element is created in one of two ways, either:
+
+  1. Nesting the input element being described by the `label` as a child of
+     the label, or
+  2. Using the *for* setting on the label to indicating the *id* of the
+     form input being described.
+
+The `label` type accepts the following option settings:
+
+  * *for*: A string describing the *name* or *id* of the input element being
+    described by the `label` instance.
+
+
+#### Example Form
+The below is a complete, if simple, example `form`, of the type that might
+be used in a sign up form on a website.  On submission, this form would
+send the text values in the input elements to the signup endpoint on the
+server, which would then be expected to respond to that request with
+a new CDF document.
+
+
+```json
+{
+  "t": "form",
+  "s": {
+    "method": "POST",
+    "action": "/signup",
+    "name": "signup_form"
+  },
+  "c": [
+    {
+      "t": "label",
+      "s": {
+        "for": "first_name"
+      },
+      "c": [{"text": "First name"}]
+    },
+    {
+      "t": "input",
+      "s": {
+        "type": "text",
+        "placeholder": "Please enter your first name",
+        "id": "first_name",
+        "name": "first_name"
+      }
+    },
+    {
+      "t": "label",
+      "s": {
+        "for": "email"
+      },
+      "c": [{"text": "Email address"}]
+    },
+    {
+      "t": "input",
+      "s": {
+        "type": "email",
+        "required": "required",
+        "placeholder": "account@example.org",
+        "id": "email",
+        "name": "email"
+      }
+    },
+    {
+      "t": "label",
+      "c": [
+        {
+          "text": "Did you read the terms and conditions?"
+        },
+        {
+          "t": "input",
+          "s": {
+            "type": "checkbox",
+            "value": "1",
+            "name": "terms",
+            "id": "terms"
+          }
+        }
+      ]
+    },
+    {
+      "t": "input",
+      "s": {
+        "value": "Submit",
+        "name": "submit",
+        "type": "submit"
+      }
+    }
+  ]
+}
+```
+
 ### Document Structure Types
 
 ## Event Types
